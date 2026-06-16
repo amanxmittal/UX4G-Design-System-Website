@@ -1,0 +1,34 @@
+:root {
+  /* Primary */
+  --Spinner-primary-Color-1: var(--ux4g-bg-primary-strong);
+  --Spinner-primary-Color-2: var(--ux4g-bg-primary-soft);
+
+  /* Secondary */
+  --Spinner-secondary-Color-1: var(--ux4g-bg-secondary-strong);
+  --Spinner-secondary-Color-2: var(--ux4g-bg-secondary-soft);
+
+  /* Tertiary */
+  --Spinner-tertiary-Color-1: var(--ux4g-bg-tertiary-strong);
+  --Spinner-tertiary-Color-2: var(--ux4g-bg-tertiary-soft);
+
+  /* Light */
+  --Spinner-Light-Color-1: var(--ux4g-color-neutral-0);
+  --Spinner-Light-Color-2: rgba(255, 255, 255, 0.25);
+
+  /* Danger */
+  --Spinner-danger-Color-1: var(--ux4g-bg-error-strong);
+  --Spinner-danger-Color-2: var(--ux4g-bg-error-soft);
+
+  /* Success */
+  --Spinner-success-Color-1: var(--ux4g-bg-success-strong);
+  --Spinner-success-Color-2: var(--ux4g-bg-success-soft);
+
+  /* Info */
+  --Spinner-info-Color-1: var(--ux4g-bg-info-strong);
+  --Spinner-info-Color-2: var(--ux4g-bg-info-soft);
+
+  /* Warning */
+  --Spinner-warning-Color-1: var(--ux4g-bg-warning-strong);
+  --Spinner-warning-Color-2: var(--ux4g-bg-warning-soft);
+}
+

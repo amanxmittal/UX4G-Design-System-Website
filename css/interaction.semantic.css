@@ -1,0 +1,13 @@
+:root {
+  --ux4g-interaction-hover-opacity: 0.9;
+  --ux4g-interaction-active-opacity: 0.8;
+  --ux4g-interaction-disabled-opacity: 0.5;
+
+  --ux4g-motion-easing-in: var(--ux4g-transition-timing-in);
+  --ux4g-motion-easing-out: var(--ux4g-transition-timing-out);
+
+  --ux4g-outline-width-default: 2px;
+  --ux4g-outline-color-focus: var(--ux4g-bg-primary-strong);
+  --ux4g-outline-offset-default: 2px;
+}
+

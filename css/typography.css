@@ -1,0 +1,312 @@
+/* ─────────────── Typography page ─────────────── */
+
+/* Type scale */
+.ty-scale { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--gray-200); border-radius: 12px; overflow: hidden; }
+.ty-row { display: grid; grid-template-columns: 240px 1fr; border-bottom: 1px solid var(--gray-150); }
+.ty-row:last-child { border-bottom: none; }
+.ty-meta { padding: 18px 22px; display: flex; flex-direction: column; justify-content: center; gap: 4px; background: var(--gray-50); border-right: 1px solid var(--gray-150); }
+.ty-name { font-family: var(--font-body); font-weight: 600; font-size: 15px; letter-spacing: -0.01em; }
+.ty-spec { font-family: var(--font-mono); font-size: 11px; color: var(--gray-500); letter-spacing: 0.04em; }
+.ty-sample { padding: 18px 24px; display: flex; align-items: center; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+
+/* Font families */
+.ty-families { display: grid; grid-template-columns: 1fr; gap: 16px; }
+.ty-fam-card { border: 1px solid var(--gray-200); border-radius: 12px; padding: 28px 28px 24px; background: #fff; }
+.ty-fam-card .fam-tag { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; color: var(--primary); font-weight: 600; margin-bottom: 18px; }
+.ty-fam-card .fam-sample { display: flex; flex-direction: column; gap: 6px; margin-bottom: 20px; }
+.ty-fam-card .fam-big { font-size: 36px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; }
+.ty-fam-card .fam-sub { font-size: 14px; color: var(--gray-500); letter-spacing: 0.04em; }
+.ty-fam-card .fam-weights { display: flex; gap: 24px; font-family: inherit; font-size: 14px; color: var(--gray-700); padding: 14px 0; border-top: 1px solid var(--gray-150); border-bottom: 1px solid var(--gray-150); margin-bottom: 14px; }
+.ty-fam-card .fam-use { font-size: 14px; color: var(--gray-700); line-height: 1.5; }
+
+/* Multilingual */
+.ty-lang-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 28px; }
+.ty-lang-card { border: 1px solid var(--gray-200); border-radius: 10px; padding: 20px 22px; background: #fff; }
+.ty-lang-card .lang-tag { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray-500); font-weight: 600; margin-bottom: 10px; }
+.ty-lang-card .lang-native { font-family: var(--font-body); font-size: 22px; font-weight: 600; margin-bottom: 8px; line-height: 1.3; }
+.ty-lang-card .lang-sample { font-family: var(--font-body); font-size: 15px; color: var(--gray-700); line-height: 1.6; }
+
+/* Token grid */
+.ty-sub-heading { font-family: var(--font-body); font-weight: 600; font-size: 20px; letter-spacing: -0.015em; margin: 0 0 16px; }
+.ty-token-grid { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--gray-200); border-radius: 10px; overflow: hidden; }
+.ty-token-row { display: grid; grid-template-columns: 180px 160px 1fr; border-bottom: 1px solid var(--gray-150); }
+.ty-token-row:last-child { border-bottom: none; }
+.ty-token-row .tk-name { font-family: var(--font-mono); font-size: 13px; font-weight: 600; padding: 14px 18px; background: var(--gray-50); border-right: 1px solid var(--gray-150); display: flex; align-items: center; color: var(--primary-deep); }
+.ty-token-row .tk-value { font-family: var(--font-mono); font-size: 13px; padding: 14px 18px; border-right: 1px solid var(--gray-150); display: flex; align-items: center; color: var(--ink); }
+.ty-token-row .tk-use { font-size: 14px; color: var(--gray-700); padding: 14px 18px; display: flex; align-items: center; line-height: 1.45; }
+
+/* ─────────────── Typography page-specific blocks ─────────────── */
+
+/* Typeface block */
+.tp-face {
+  padding: 28px 30px 32px;
+  border: 1px solid var(--gray-200);
+  border-radius: 16px;
+  margin-bottom: 24px;
+  background: #fff;
+}
+.tp-face-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 14px;
+}
+.tp-face-name {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 26px;
+  letter-spacing: -0.018em;
+  margin: 0 0 4px;
+  color: var(--ink);
+}
+.tp-face-role {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  color: var(--gray-500);
+}
+.tp-face-token {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--primary-deep);
+  background: var(--primary-tint);
+  padding: 4px 10px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.tp-face-rationale {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--gray-700);
+  margin: 0 0 18px;
+  max-width: 720px;
+}
+.tp-specimen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px 36px;
+  padding: 18px 20px;
+  background: #FAFAFA;
+  border: 1px solid var(--gray-150);
+  border-radius: 12px;
+  margin-bottom: 12px;
+  line-height: 1.1;
+  color: var(--ink);
+}
+.tp-face-weights {
+  font-size: 13.5px;
+  color: var(--gray-500);
+  margin: 0;
+}
+.tp-face-weights strong { color: var(--ink); font-weight: 600; }
+
+.tp-code {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  background: #FAFAFA;
+  border: 1px solid var(--gray-150);
+  border-radius: 10px;
+  padding: 16px 18px;
+  overflow: auto;
+  color: var(--gray-900);
+  line-height: 1.55;
+  margin: 0 0 16px;
+}
+/* Suppress the mac-window chrome that colour.css's .tp-code rule adds
+   (28px white bar + dots). Typography page wants a plain code block. */
+.tp-code::before,
+.tp-code::after { content: none; }
+
+/* Type scale blocks */
+.tp-scale-block {
+  margin-bottom: 40px;
+}
+.tp-scale-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.tp-scale-list {
+  border: 1px solid var(--gray-200);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+}
+.tp-scale-row {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 28px;
+  padding: 22px 24px;
+  border-bottom: 1px solid var(--gray-150);
+  align-items: center;
+}
+.tp-scale-row:last-child { border-bottom: none; }
+.tp-specimen-line {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--ink);
+}
+.tp-specimen-line > span {
+  display: inline-block;
+}
+.tp-scale-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--gray-700);
+}
+.tp-scale-meta .tp-name {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--ink);
+}
+.tp-scale-meta .tp-cls {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--primary-deep);
+  background: var(--primary-tint);
+  padding: 2px 6px;
+  border-radius: 4px;
+  align-self: flex-start;
+}
+.tp-scale-meta .tp-spec {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--gray-500);
+}
+.tp-scale-meta .tp-spec code {
+  background: var(--gray-150);
+  color: var(--gray-700);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 10.5px;
+}
+.tp-scale-meta .tp-use {
+  font-size: 13px;
+  color: var(--gray-700);
+  margin-top: 4px;
+}
+
+/* Weights */
+.tp-weights {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+.tp-weight {
+  padding: 22px 22px 24px;
+  border: 1px solid var(--gray-200);
+  border-radius: 14px;
+  background: #fff;
+}
+.tp-weight > span {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--ink);
+}
+.tp-weight p {
+  margin: 0;
+  font-size: 13.5px;
+  color: var(--gray-700);
+  line-height: 1.55;
+}
+
+/* Bulleted rules list */
+.tp-rule-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.tp-rule-list li {
+  position: relative;
+  padding: 10px 14px 10px 32px;
+  background: #FAFAFA;
+  border: 1px solid var(--gray-150);
+  border-radius: 10px;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--gray-700);
+}
+.tp-rule-list li::before {
+  content: "→";
+  position: absolute;
+  left: 14px;
+  top: 10px;
+  font-family: var(--font-mono);
+  color: var(--primary);
+}
+.tp-rule-list code {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--primary-deep);
+  background: var(--primary-tint);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+@media (max-width: 960px) {
+  .tp-scale-row { grid-template-columns: 1fr; gap: 12px; }
+  .tp-weights { grid-template-columns: 1fr 1fr; }
+  .tp-face-head { flex-direction: column; gap: 8px; }
+  .tp-specimen { gap: 18px 24px; }
+}
+
+
+/* ─────────── Default/Strong variant toggle ─────────── */
+/* Sits in the meta column next to the style name; flips the row between
+   .ux4g-{family}-{size}-default and -strong. Ghost styling so it never
+   competes with the type sample itself. */
+.tp-meta-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 2px;
+}
+.tp-meta-head .tp-name { margin: 0; }
+.tp-variant-toggle {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-self: center;
+  background: var(--gray-100, #f5f5f5);
+  border-radius: 999px;
+  padding: 3px;
+  font-family: var(--font-body);
+}
+.tp-variant-btn {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--gray-500, #737373);
+  padding: 5px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 160ms ease, color 160ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.tp-variant-btn:hover { color: var(--ink); }
+.tp-variant-btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+.tp-variant-btn.is-active {
+  background: #fff;
+  color: var(--primary);
+  box-shadow: 0 1px 3px rgba(48, 28, 125, 0.12);
+}

@@ -1,0 +1,4 @@
+:root {
+  --ux4g-visibility-show: var(--ux4g-visibility-visible);
+  --ux4g-visibility-hide: var(--ux4g-visibility-hidden);
+}

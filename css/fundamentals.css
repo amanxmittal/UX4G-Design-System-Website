@@ -1,0 +1,121 @@
+/* ─────────────── Fundamentals index ─────────────── */
+
+.fu-page { background: #fff; }
+
+.fu-header { background: #fff; padding: 40px 0 40px; border-bottom: 1px solid var(--gray-150); }
+.fu-crumb { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.06em; color: var(--gray-500); margin-bottom: 80px; display: flex; gap: 8px; align-items: center; }
+.fu-crumb a { cursor: pointer; }
+.fu-crumb a:hover { color: var(--primary); }
+.fu-crumb .sep { color: var(--gray-300); }
+.fu-crumb .current { color: var(--ink); }
+.fu-title-row { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end; }
+.fu-h { font-family: var(--font-display); font-weight: 600; font-size: 72px; letter-spacing: -0.035em; line-height: 0.95; margin: 0; }
+.fu-desc { font-size: 18px; line-height: 1.5; color: var(--gray-700); margin: 0; max-width: 480px; }
+
+/* Fundamentals card grid (mirrors Foundations card pattern) */
+.fu-grid-wrap { padding: 80px 0 96px; }
+.fuv-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 1fr;
+  gap: 16px;
+}
+.fuv {
+  position: relative;
+  background: #fff;
+  border: 1px solid var(--gray-200);
+  border-radius: 16px;
+  padding: 12px 12px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  cursor: pointer;
+  overflow: hidden;
+  transition:
+    transform 320ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 200ms,
+    box-shadow 320ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.fuv:hover {
+  border-color: var(--primary);
+  transform: translateY(-3px);
+  box-shadow: 0 18px 42px -24px rgba(48,28,125,0.45);
+}
+.fuv__panel {
+  flex: 1;
+  min-height: 200px;
+  border-radius: 12px;
+  background: linear-gradient(160deg,
+    color-mix(in srgb, #fff 70%, var(--amber-soft)),
+    color-mix(in srgb, var(--primary-tint-2) 45%, #fff) 70%,
+    color-mix(in srgb, var(--primary-tint) 65%, #fff));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 0;
+}
+.fuv__panel svg { width: 80%; height: auto; max-height: 78%; display: block; }
+.fuv__body {
+  padding: 0 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.fuv__name {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 24px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin: 0;
+  line-height: 1.08;
+}
+.fuv__desc {
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--gray-700);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Why-fundamentals block */
+.fu-why { padding: 64px 0 120px; border-top: 1px solid var(--gray-150); }
+.fu-why h2 {
+  font-family: var(--font-display); font-weight: 600;
+  font-size: 48px; letter-spacing: -0.025em;
+  line-height: 1.0; margin: 0 0 56px;
+  max-width: 740px;
+}
+.fu-why .cols {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 56px;
+}
+.fu-why .col { display: flex; flex-direction: column; gap: 10px; }
+.fu-why .cap {
+  font-family: var(--font-mono);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--primary);
+  margin-bottom: 4px;
+}
+.fu-why .col h3 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 26px;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0;
+}
+.fu-why .col .rule { height: 1px; background: var(--gray-200); margin: 8px 0 6px; }
+.fu-why .col p {
+  font-size: 15px;
+  color: var(--gray-700);
+  line-height: 1.55;
+  margin: 0;
+}

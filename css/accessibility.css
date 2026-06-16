@@ -1,0 +1,256 @@
+/* ─────────── Accessibility sub-page (extends component-page.css) ─────────── */
+
+.a11y-page { background: #fff; }
+
+/* Fundamentals child pages don't have the left component nav, so undo
+   the two-column page grid from .cd-page and let sections flow normally. */
+.cd-page.a11y-page,
+.cd-page.cn-page {
+  display: block;
+  max-width: none;
+  padding: 0;
+}
+
+/* Header band — sits in the content column */
+.a11y-page .fu-header,
+.cn-page .fu-header { grid-column: auto; }
+
+/* Fundamentals child pages don't have the left component nav, so the
+   cd-layout should center inside the standard container width instead of
+   reserving room for it. */
+.a11y-page .cd-layout,
+.cn-page .cd-layout {
+  grid-column: auto;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 56px var(--side-pad) 0;
+  gap: 80px;
+}
+
+/* Who benefits, 3×2 grid */
+.benefit-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--gray-200);
+  border: 1px solid var(--gray-200);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.benefit-cell {
+  background: #fff;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 200px;
+}
+.benefit-cell .b-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  color: var(--primary);
+}
+.benefit-cell .b-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 22px;
+  letter-spacing: -0.018em;
+  line-height: 1.05;
+  margin: 6px 0 6px;
+}
+.benefit-cell .b-rule { width: 32px; height: 2px; background: var(--ink); margin-bottom: 8px; }
+.benefit-cell .b-text {
+  font-size: 14.5px;
+  color: var(--gray-700);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* What you get by default, 2×2 */
+.default-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.default-card {
+  border: 1px solid var(--gray-200);
+  border-radius: 14px;
+  padding: 28px 30px;
+  background: linear-gradient(180deg, #FAF7FF 0%, #FFFFFF 60%);
+}
+.default-card .d-cap {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--primary-deep);
+  margin-bottom: 12px;
+}
+.default-card h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 22px;
+  letter-spacing: -0.018em;
+  margin: 0 0 10px;
+}
+.default-card p { font-size: 15px; color: var(--gray-700); line-height: 1.55; margin: 0; }
+
+/* Inline test rendered demos */
+.acontrast-row { display: flex; align-items: center; gap: 14px; margin-top: 18px; flex-wrap: wrap; }
+.swatch-demo {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 15px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+}
+.swatch-demo.s-primary { background: var(--primary); color: #fff; }
+.swatch-demo.s-on-tint { background: var(--primary-tint); color: var(--primary-deep); border-color: var(--primary-tint-2); }
+.swatch-demo.s-amber { background: #FFA827; color: #2A1900; }
+.swatch-demo .ratio { font-family: var(--font-mono); font-size: 11px; opacity: 0.75; margin-left: 8px; font-weight: 500; }
+
+/* Testing list */
+.test-list { display: flex; flex-direction: column; gap: 14px; }
+.test-row {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  gap: 20px;
+  align-items: center;
+  padding: 22px 26px;
+  border: 1px solid var(--gray-200);
+  border-radius: 12px;
+  background: #fff;
+}
+.test-row .t-num {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 32px;
+  letter-spacing: -0.02em;
+  color: var(--primary);
+  line-height: 1;
+}
+.test-row .t-body { display: flex; flex-direction: column; gap: 4px; }
+.test-row .t-body strong {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 17px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.test-row .t-body span {
+  font-size: 14.5px;
+  color: var(--gray-700);
+  line-height: 1.5;
+}
+.test-row .t-kbd {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 4px 8px;
+  border: 1px solid var(--gray-300);
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  color: var(--gray-700);
+  background: var(--gray-50);
+}
+
+/* Common mistakes */
+.mistake-list { border-top: 1px solid var(--gray-200); }
+.mistake-row {
+  display: grid;
+  grid-template-columns: 1fr 32px 1fr;
+  gap: 0;
+  align-items: center;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--gray-200);
+}
+.mistake-row .m-left {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  line-height: 1.4;
+  color: var(--ink);
+}
+.mistake-row .m-arrow {
+  font-family: var(--font-mono);
+  color: var(--gray-400);
+  text-align: center;
+  font-size: 18px;
+}
+.mistake-row .m-right {
+  font-size: 15px;
+  color: var(--gray-700);
+  line-height: 1.5;
+  padding-left: 8px;
+  border-left: 2px solid var(--danger);
+  padding: 4px 0 4px 16px;
+}
+
+/* Lede paragraphs */
+.cd-lede {
+  font-size: 17px;
+  color: var(--gray-900);
+  line-height: 1.65;
+  max-width: 680px;
+}
+.cd-lede + .cd-lede { margin-top: 16px; }
+
+/* Reuse component-page styles for crumb/title/sections; minor scope tweak */
+.a11y-page .cd-title { font-size: 80px; }
+
+/* Tiny do/don't demos specific to accessibility */
+.errdemo {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 14.5px;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid var(--gray-200);
+  max-width: 100%;
+}
+.errdemo.bad { border-color: #F4B9B5; background: #FDF6F5; }
+.errdemo.good { border-color: #B9DDC5; background: #F4FAF6; }
+.errdemo .ico {
+  width: 16px; height: 16px; border-radius: 50%;
+  flex-shrink: 0;
+  display: grid; place-items: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+}
+.errdemo.bad .ico { background: var(--danger); }
+.errdemo.good .ico { background: var(--success); }
+
+.statusdemo {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 5px 10px;
+  border-radius: 4px;
+  background: #FFF1DA;
+  color: #7A4900;
+  border: 1px solid #F1D5A0;
+}
+.statusline {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 14.5px;
+  color: var(--ink);
+}
+.statusline .meta { color: var(--gray-700); font-weight: 400; }

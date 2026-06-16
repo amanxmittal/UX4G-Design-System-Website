@@ -1,0 +1,2320 @@
+/* ─────────────── Pattern category page ─────────────── */
+/* Layout: fixed left nav (category switcher) + main content + nested right "on this page" nav */
+
+.ptc-page {
+  --ptc-outer-pad: 24px;
+  --ptc-left-width: 252px;
+  --ptc-left-gap: 56px;
+  --ptc-side-width: 240px;
+  --ptc-side-gap: 56px;
+  background: #fff;
+  display: grid;
+  grid-template-columns: var(--ptc-left-width) 1fr;
+  column-gap: var(--ptc-left-gap);
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--ptc-outer-pad);
+}
+
+/* ───────────── Left fixed nav (category switcher) ───────────── */
+.ptc-nav-left-wrap {
+  position: sticky;
+  top: 96px;
+  align-self: start;
+  grid-column: 1;
+  grid-row: 1 / -1;
+  overflow: visible;
+}
+.ptc-nav-left .ptc-nl-groups {
+  opacity: 0.6;
+  transition: opacity 300ms cubic-bezier(.16,1,.3,1);
+}
+.ptc-nav-left-wrap:hover .ptc-nav-left .ptc-nl-groups,
+.ptc-nav-left-wrap:focus-within .ptc-nav-left .ptc-nl-groups {
+  opacity: 1;
+}
+.ptc-nav-left {
+  position: relative;
+  width: 100%;
+  max-height: inherit;
+  padding-top: 80px;
+  padding-right: 8px;
+  padding-left: 4px;
+  padding-bottom: 24px;
+  overflow-y: auto;
+  font-family: var(--font-body, system-ui);
+  scrollbar-width: none;
+}
+.ptc-nav-left::-webkit-scrollbar { width: 0; }
+.ptc-nav-left-wrap:hover .ptc-nav-left { scrollbar-width: thin; }
+.ptc-nav-left-wrap:hover .ptc-nav-left::-webkit-scrollbar { width: 5px; }
+.ptc-nav-left-wrap:hover .ptc-nav-left::-webkit-scrollbar-thumb { background: var(--gray-200); border-radius: 3px; }
+
+.ptc-nl-head {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--gray-500);
+  text-transform: uppercase;
+  padding: 0 8px 14px;
+}
+.ptc-nl-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+.ptc-nl-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--gray-700);
+  text-decoration: none;
+  cursor: pointer;
+  line-height: 1.35;
+  transition: color 120ms, background 120ms;
+}
+.ptc-nl-item:hover { color: var(--ink); background: var(--gray-50); }
+.ptc-nl-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--gray-500);
+  font-weight: 600;
+  min-width: 32px;
+}
+.ptc-nl-label { flex: 1; letter-spacing: -0.005em; }
+.ptc-nl-item.current {
+  color: var(--ink);
+  font-weight: 600;
+  background: color-mix(in srgb, var(--amber-soft) 60%, #fff);
+}
+.ptc-nl-item.current .ptc-nl-num { color: #c97a0c; }
+.ptc-nl-item.soon { color: var(--gray-400); pointer-events: none; }
+.ptc-nl-item.soon .ptc-nl-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--gray-400);
+  text-transform: uppercase;
+}
+
+/* ───────────── Hero banner (amber-dominant) ───────────── */
+.ptc-hero-wrap {
+  grid-column: 2;
+  padding: 40px 0 48px;
+  border-bottom: 1px solid var(--gray-150);
+  margin-bottom: 56px;
+}
+
+/* ───────────── Hero link pills ───────────── */
+.ptc-link-pills {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 32px;
+}
+.ptc-meta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 16px 8px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--gray-300);
+  background: #fff;
+  color: var(--ink);
+  font-size: 13.5px;
+  font-weight: 500;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: background 140ms, border-color 140ms, color 140ms, transform 80ms;
+  text-decoration: none;
+}
+.ptc-meta-pill:hover { background: var(--gray-50); border-color: var(--gray-400); }
+.ptc-meta-pill:active { transform: translateY(1px); }
+.ptc-meta-ico {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: #fff;
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.ptc-meta-ico.fig { background: transparent; }
+.ptc-hero-crumb {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--gray-500);
+  margin-bottom: 32px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.ptc-hero-crumb a { cursor: pointer; }
+.ptc-hero-crumb a:hover { color: var(--primary); }
+.ptc-hero-crumb .sep { color: var(--gray-300); }
+.ptc-hero-crumb .current { color: var(--ink); }
+
+.ptc-hero {
+  position: relative;
+  border-radius: 24px;
+  padding: 56px 64px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+  min-height: 360px;
+  /* Amber-dominant gradient with subtle primary accents */
+  background:
+    radial-gradient(circle at 92% 88%, rgba(106,78,255,0.10), transparent 45%),
+    radial-gradient(circle at 8% 12%, rgba(255,168,39,0.25), transparent 50%),
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--amber-soft) 90%, #fff) 0%,
+      color-mix(in srgb, var(--amber-soft) 60%, #fff) 55%,
+      color-mix(in srgb, var(--primary-tint) 50%, #fff) 100%);
+  border: 1px solid color-mix(in srgb, #ffa827 30%, #fff);
+}
+.ptc-hero-text { position: relative; z-index: 2; }
+.ptc-hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #8a5a14;
+  background: color-mix(in srgb, #ffa827 25%, #fff);
+  padding: 6px 12px;
+  border-radius: 999px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+.ptc-hero-tag .dot { width: 6px; height: 6px; border-radius: 50%; background: #c97a0c; }
+.ptc-hero-h {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 60px;
+  letter-spacing: -0.035em;
+  line-height: 1.0;
+  margin: 0 0 18px;
+  color: var(--ink);
+}
+.ptc-hero-desc {
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--gray-700);
+  margin: 0 0 24px;
+  max-width: 480px;
+}
+.ptc-hero-meta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.ptc-hero-meta .chip {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  background: rgba(255,255,255,0.6);
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.7);
+  text-transform: uppercase;
+}
+
+/* Hero visual area — vertical pattern marquee */
+.ptc-hero-viz {
+  position: relative;
+  height: 320px;
+  z-index: 1;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 14%, #000 86%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 14%, #000 86%, transparent 100%);
+}
+.ptc-hero-viz:has(.ptc-hero-img) {
+  -webkit-mask-image: none;
+  mask-image: none;
+  overflow: visible;
+}
+.ptc-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+}
+.ptc-hero-marquee {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.ptc-hero-marquee__col {
+  overflow: visible;
+  position: relative;
+}
+.ptc-hero-marquee__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  will-change: transform;
+}
+.ptc-hero-marquee__col--a .ptc-hero-marquee__inner {
+  animation: ptcMarqUp 26s linear infinite;
+}
+.ptc-hero-marquee__col--b .ptc-hero-marquee__inner {
+  animation: ptcMarqDown 32s linear infinite;
+  /* Offset start position so the second column doesn't begin aligned with the first */
+  animation-delay: -8s;
+}
+.ptc-hero-marquee:hover .ptc-hero-marquee__inner { animation-play-state: paused; }
+@keyframes ptcMarqUp {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-50%); }
+}
+@keyframes ptcMarqDown {
+  from { transform: translateY(-50%); }
+  to   { transform: translateY(0); }
+}
+
+/* Pattern snippet card inside the hero marquee */
+.ptc-hero-snip {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, #ffa827 18%, #fff);
+  box-shadow: 0 12px 28px -16px rgba(48,28,125,0.25), 0 2px 6px rgba(0,0,0,0.04);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: var(--font-body);
+}
+.ptc-hero-snip__tag {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #c97a0c;
+  text-transform: uppercase;
+  align-self: flex-start;
+  background: color-mix(in srgb, #ffa827 14%, #fff);
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+.ptc-hero-snip__name {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.012em;
+  line-height: 1.2;
+  margin: 0;
+}
+.ptc-hero-snip__preview {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 2px;
+}
+.ptc-hero-snip__preview .ptc-mock__head { font-size: 11px; }
+.ptc-hero-snip__preview .ptc-mock__sub  { font-size: 9px; }
+.ptc-hero-snip__preview .ptc-mock__btn,
+.ptc-hero-snip__preview .ptc-mock__chip { font-size: 9.5px; }
+
+/* ───────────── Main layout (header band + grid) ───────────── */
+.ptc-layout {
+  grid-column: 2;
+  padding: 56px 0 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--ptc-side-width);
+  gap: var(--ptc-side-gap);
+  align-items: start;
+}
+
+/* ───────────── Right "on this page" nav (nested) ───────────── */
+.ptc-side {
+  position: sticky;
+  top: 96px;
+  font-family: var(--font-body, system-ui);
+  padding-top: 4px;
+}
+.ptc-side .ptc-side-head {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--gray-500);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--gray-150);
+}
+.ptc-side-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-left: 1px solid var(--gray-200);
+}
+.ptc-side-pattern { margin: 0; }
+.ptc-side-pattern + .ptc-side-pattern { margin-top: 2px; }
+.ptc-side-pattern > a.ptc-side-pat {
+  display: block;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  margin-left: -1px;
+  letter-spacing: -0.005em;
+  cursor: pointer;
+  transition: color 120ms, border-color 120ms;
+}
+.ptc-side-pattern > a.ptc-side-pat:hover { color: var(--primary); }
+.ptc-side-pattern > a.ptc-side-pat.active {
+  color: var(--primary);
+  border-left-color: var(--primary);
+}
+.ptc-side-sub {
+  list-style: none;
+  margin: 2px 0 8px 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.ptc-side-sub a {
+  display: block;
+  padding: 6px 14px 6px 28px;
+  font-size: 13px;
+  color: var(--gray-600);
+  text-decoration: none;
+  line-height: 1.4;
+  border-left: 2px solid transparent;
+  margin-left: -1px;
+  cursor: pointer;
+  transition: color 120ms, border-color 120ms;
+}
+.ptc-side-sub a:hover { color: var(--ink); }
+.ptc-side-sub a.active {
+  color: var(--primary);
+  border-left-color: var(--primary);
+  font-weight: 600;
+}
+
+/* ───────────── Main column / pattern sections ───────────── */
+.ptc-main { min-width: 0; padding-bottom: 120px; }
+
+.ptc-pattern {
+  margin-bottom: 96px;
+  scroll-margin-top: 88px;
+}
+.ptc-pat-head {
+  border-bottom: 1px solid var(--gray-150);
+  padding-bottom: 28px;
+  margin-bottom: 36px;
+}
+.ptc-pat-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #c97a0c;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: block;
+}
+.ptc-pat-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 40px;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  color: var(--ink);
+  margin: 0 0 14px;
+}
+.ptc-pat-lede {
+  font-size: 17px;
+  color: var(--gray-700);
+  line-height: 1.55;
+  margin: 0;
+  max-width: 720px;
+}
+
+.ptc-sub {
+  scroll-margin-top: 88px;
+  margin-bottom: 40px;
+}
+.ptc-sub-head {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.018em;
+  color: var(--ink);
+  margin: 0 0 6px;
+}
+.ptc-sub-rule {
+  height: 1px;
+  background: var(--gray-150);
+  margin: 8px 0 18px;
+}
+.ptc-sub-intro {
+  font-size: 15px;
+  color: var(--gray-700);
+  line-height: 1.55;
+  margin: 0 0 20px;
+  max-width: 720px;
+}
+
+/* ───────────── Frame gallery ───────────── */
+.ptc-frames {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+.ptc-frame {
+  background: #fff;
+  border: 1px solid var(--gray-200);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 200ms, transform 200ms, box-shadow 200ms;
+}
+.ptc-frame:hover {
+  border-color: color-mix(in srgb, #ffa827 60%, #fff);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 36px -20px rgba(48,28,125,0.25);
+}
+.ptc-frame__stage {
+  /* Hug content: height grows with the mock inside, padding stays fixed. */
+  min-height: 220px;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255,168,39,0.10), transparent 60%),
+    color-mix(in srgb, var(--amber-soft) 35%, #fff);
+  border-bottom: 1px solid var(--gray-150);
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 24px 18px;
+  overflow: visible;
+}
+.ptc-frame__body { padding: 14px 16px 16px; }
+.ptc-frame__num {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #c97a0c;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.ptc-frame__name {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin: 0 0 4px;
+  line-height: 1.3;
+}
+.ptc-frame__desc {
+  font-size: 13px;
+  color: var(--gray-700);
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* Mock UI screen — device-agnostic surface for showing screen content */
+.ptc-mock {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px -4px rgba(48,28,125,0.18), 0 1px 3px rgba(0,0,0,0.04);
+  width: 100%;
+  max-width: 220px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: var(--font-body);
+  border: 1px solid var(--gray-150);
+}
+.ptc-mock--wide { max-width: 380px; }
+.ptc-mock--full { max-width: none; width: 100%; }
+.ptc-mock__body {
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 0;
+}
+.ptc-mock__head {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+.ptc-mock__sub {
+  font-size: 9px;
+  color: var(--gray-500);
+  margin: 0;
+  line-height: 1.4;
+}
+.ptc-mock__input {
+  border: 1px solid var(--gray-200);
+  background: #fff;
+  border-radius: 4px;
+  padding: 6px 8px;
+  font-size: 9px;
+  color: var(--gray-700);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.ptc-mock__input--active { border-color: var(--primary); border-width: 1.5px; }
+.ptc-mock__btn {
+  font-size: 9px;
+  font-weight: 700;
+  text-align: center;
+  padding: 6px 10px;
+  border-radius: 4px;
+  background: var(--primary);
+  color: #fff;
+}
+.ptc-mock__btn--ghost { background: transparent; color: var(--primary); border: 1px solid var(--primary-tint-2); }
+.ptc-mock__btn--amber { background: #c97a0c; color: #fff; }
+.ptc-mock__btn--danger { background: #db372d; color: #fff; }
+.ptc-mock__btn--success { background: #106c35; color: #fff; }
+.ptc-mock__btn--disabled { background: var(--gray-100); color: var(--gray-500); }
+.ptc-mock__alert {
+  border-radius: 4px;
+  padding: 6px 8px;
+  font-size: 8.5px;
+  display: flex;
+  gap: 5px;
+  align-items: flex-start;
+  line-height: 1.4;
+}
+.ptc-mock__alert .ico {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  font-size: 8px;
+  color: #fff;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.ptc-mock__alert--info { background: #f0f6ff; color: #0a4480; }
+.ptc-mock__alert--info .ico { background: #2563eb; }
+.ptc-mock__alert--warn { background: #fff3e0; color: #8a5a14; }
+.ptc-mock__alert--warn .ico { background: #c97a0c; }
+.ptc-mock__alert--success { background: #ebf6ef; color: #106c35; }
+.ptc-mock__alert--success .ico { background: #106c35; }
+.ptc-mock__alert--error { background: #fdecea; color: #aa2920; }
+.ptc-mock__alert--error .ico { background: #db372d; }
+.ptc-mock__otp {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+}
+.ptc-mock__otp i {
+  width: 18px; height: 22px;
+  border-radius: 4px;
+  border: 1px solid var(--gray-300);
+  display: grid; place-items: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink);
+  background: #fff;
+  font-style: normal;
+}
+.ptc-mock__otp i.f { border-color: var(--primary); border-width: 1.5px; }
+.ptc-mock__otp i.e { border-color: #db372d; color: #db372d; }
+.ptc-mock__otp i.s { border-color: #106c35; color: #106c35; }
+.ptc-mock__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 8.5px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--gray-100);
+  color: var(--gray-700);
+}
+.ptc-mock__chip--success { background: #ebf6ef; color: #106c35; }
+.ptc-mock__chip--warn { background: #fff3e0; color: #8a5a14; }
+.ptc-mock__chip--error { background: #fdecea; color: #aa2920; }
+.ptc-mock__chip--purple { background: var(--primary-tint); color: var(--primary-deep); }
+.ptc-mock__row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 9px;
+}
+.ptc-mock__icon {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--primary-tint);
+  display: grid; place-items: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--primary-deep);
+  flex-shrink: 0;
+}
+.ptc-mock__bar-prog {
+  height: 5px;
+  background: var(--gray-100);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.ptc-mock__bar-prog i {
+  display: block;
+  height: 100%;
+  background: var(--primary);
+  border-radius: 999px;
+}
+.ptc-mock__label {
+  font-size: 9px;
+  color: var(--gray-500);
+  font-weight: 500;
+}
+.ptc-mock__divider {
+  height: 1px;
+  background: var(--gray-150);
+  margin: 2px 0;
+}
+.ptc-mock__center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 0;
+}
+.ptc-mock__check {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: #106c35;
+  display: grid; place-items: center;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* ───────────── When-to-use / behaviour / a11y / edges (shared list block) ───────────── */
+.ptc-bullets {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ptc-bullets li {
+  font-size: 15px;
+  color: var(--gray-800, var(--ink));
+  line-height: 1.55;
+  padding-left: 22px;
+  position: relative;
+}
+.ptc-bullets li::before {
+  content: "";
+  position: absolute;
+  left: 6px; top: 10px;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--primary-tint-2);
+}
+.ptc-bullets--check li::before {
+  background: transparent;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: #ebf6ef;
+  top: 4px; left: 0;
+}
+.ptc-bullets--check li::after {
+  content: "✓";
+  position: absolute;
+  left: 2px; top: 4px;
+  width: 12px; height: 14px;
+  display: grid;
+  place-items: center;
+  font-size: 9px;
+  color: #106c35;
+  font-weight: 700;
+}
+.ptc-bullets--check li { padding-left: 22px; }
+.ptc-bullets--warn li::before { background: #fcd9a0; }
+
+.ptc-when {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+@media (max-width: 900px) { .ptc-when { grid-template-columns: 1fr; } }
+.ptc-when-block {
+  background: var(--gray-50);
+  border-radius: 12px;
+  padding: 22px 26px;
+}
+.ptc-when-block.is-not {
+  background: #fdf6f5;
+}
+.ptc-when-block .h {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--primary-deep);
+  text-transform: uppercase;
+  margin: 0 0 12px;
+}
+.ptc-when-block.is-not .h { color: #aa2920; }
+
+/* ───────────── Flow diagram ───────────── */
+.ptc-flow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  background: color-mix(in srgb, var(--amber-soft) 28%, #fff);
+  border: 1px solid color-mix(in srgb, #ffa827 24%, #fff);
+  border-radius: 14px;
+  padding: 20px 22px;
+}
+.ptc-flow__step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ptc-flow__step .num {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid color-mix(in srgb, #ffa827 30%, #fff);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: #c97a0c;
+  flex-shrink: 0;
+}
+.ptc-flow__step .lbl {
+  font-size: 13px;
+  color: var(--ink);
+  font-weight: 500;
+}
+.ptc-flow__step .arr {
+  color: var(--gray-400);
+  font-family: var(--font-mono);
+  margin-left: 2px;
+}
+
+/* ───────────── Components used (linked list) ───────────── */
+.ptc-comps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.ptc-comp-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--primary-deep);
+  background: var(--primary-tint);
+  border-radius: 6px;
+  padding: 7px 11px;
+  text-decoration: none;
+  transition: background-color 200ms;
+}
+.ptc-comp-link:hover {
+  background: var(--primary-tint-2);
+}
+.ptc-comp-link::after {
+  content: "↗";
+  font-size: 11px;
+  opacity: 0.6;
+}
+
+/* ───────────── Do and Don't — clean paired layout, no top borders ───────────── */
+.ptc-dodont {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+@media (max-width: 900px) { .ptc-dodont { grid-template-columns: 1fr; } }
+.ptc-dodont__col {
+  border-radius: 12px;
+  padding: 22px 24px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.ptc-dodont__col--do   { background: color-mix(in srgb, #ebf6ef 70%, #fff); }
+.ptc-dodont__col--dont { background: color-mix(in srgb, #fdecea 70%, #fff); }
+.ptc-dodont__mark {
+  flex-shrink: 0;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 15px;
+  font-weight: 800;
+  color: #fff;
+}
+.ptc-dodont__col--do   .ptc-dodont__mark { background: #106c35; }
+.ptc-dodont__col--dont .ptc-dodont__mark { background: #db372d; }
+.ptc-dodont__copy { flex: 1; min-width: 0; }
+.ptc-dodont__h {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 0 0 6px;
+}
+.ptc-dodont__col--do   .ptc-dodont__h { color: #106c35; }
+.ptc-dodont__col--dont .ptc-dodont__h { color: #aa2920; }
+.ptc-dodont__text {
+  font-size: 14.5px;
+  color: var(--ink);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* ───────────── Related patterns ───────────── */
+.ptc-related {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 900px) { .ptc-related { grid-template-columns: 1fr; } }
+.ptc-related__card {
+  border: 1px solid var(--gray-200);
+  border-radius: 12px;
+  padding: 16px 20px;
+  background: #fff;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: border-color 200ms, transform 200ms;
+}
+.ptc-related__card:hover { border-color: var(--primary); transform: translateY(-2px); }
+.ptc-related__tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gray-500);
+}
+.ptc-related__name {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.ptc-related__desc {
+  font-size: 13px;
+  color: var(--gray-600);
+  line-height: 1.4;
+  margin-top: 2px;
+}
+
+/* ───────────── Conditional section blocks ─────────────
+   Soft tinted card per type — no edge borders, no extraneous labels.
+   The container is the only visual differentiator from the surrounding prose. */
+.ptc-conditional {
+  border-radius: 14px;
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.ptc-conditional__title {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  margin: 0;
+  line-height: 1.3;
+}
+.ptc-conditional__body {
+  font-size: 15px;
+  color: var(--gray-800, var(--ink));
+  line-height: 1.65;
+  margin: 0;
+  max-width: 760px;
+}
+.ptc-conditional__body p { margin: 0 0 12px; }
+.ptc-conditional__body p:last-child { margin: 0; }
+
+/* Block-level subsection — wraps heading + rule + content inside a soft tinted card */
+.ptc-sub--block {
+  border-radius: 14px;
+  padding: 24px 28px;
+}
+.ptc-sub--block .ptc-sub-rule {
+  background: color-mix(in srgb, var(--ink) 8%, transparent);
+}
+.ptc-sub--block.ptc-sub--compliance   { background: color-mix(in srgb, #fff3e0 38%, #fff); }
+.ptc-sub--block.ptc-sub--data         { background: color-mix(in srgb, var(--primary-tint) 32%, #fff); }
+.ptc-sub--block.ptc-sub--integrations { background: color-mix(in srgb, var(--primary-tint) 28%, #fff); }
+
+/* Plain prose — content that doesn't need a tinted block, just paragraphs */
+.ptc-prose {
+  font-size: 15px;
+  color: var(--gray-800, var(--ink));
+  line-height: 1.65;
+  max-width: 760px;
+}
+.ptc-prose p { margin: 0 0 12px; }
+.ptc-prose p:last-child { margin: 0; }
+
+/* Tone variants — soft tinted backgrounds. No borders, no edges. */
+.ptc-conditional--compliance { background: color-mix(in srgb, #fff3e0 38%, #fff); }
+.ptc-conditional--data       { background: color-mix(in srgb, var(--primary-tint) 32%, #fff); }
+.ptc-conditional--vle        { background: color-mix(in srgb, #fff3e0 22%, #fff8ee); }
+.ptc-conditional--officer    { background: #fafafa; border: 1px solid var(--gray-150); }
+.ptc-conditional--recovery   { background: color-mix(in srgb, #fdecea 35%, #fff); }
+
+/* ───────────── Channel variants ───────────── */
+.ptc-channels {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+.ptc-channel {
+  border: 1px solid var(--gray-200);
+  border-radius: 12px;
+  background: #fff;
+  padding: 16px 18px;
+}
+.ptc-channel__h {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--ink);
+  margin: 0 0 6px;
+}
+.ptc-channel__h .ico {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--primary-tint);
+  color: var(--primary-deep);
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  font-weight: 700;
+}
+.ptc-channel__body {
+  font-size: 13px;
+  color: var(--gray-700);
+  line-height: 1.5;
+}
+
+/* ───────────── Integrations ───────────── */
+.ptc-integrations {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+.ptc-integration {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--gray-150);
+  align-items: baseline;
+}
+.ptc-integration:last-child { border-bottom: none; }
+.ptc-integration .sys {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--primary-deep);
+}
+.ptc-integration .purpose {
+  font-size: 14px;
+  color: var(--gray-800, var(--ink));
+  line-height: 1.5;
+}
+@media (max-width: 700px) {
+  .ptc-integration { grid-template-columns: 1fr; gap: 4px; }
+}
+
+/* ───────────── Status vocabulary table ───────────── */
+.ptc-vocab-control {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.ptc-vocab-control__label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gray-500);
+}
+.ptc-vocab-control__group {
+  display: inline-flex;
+  padding: 4px;
+  border-radius: 999px;
+  background: var(--gray-100);
+  border: 1px solid var(--gray-200);
+  gap: 2px;
+}
+.ptc-vocab-control__btn {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--gray-700);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 140ms ease, color 140ms ease, transform 140ms ease;
+}
+.ptc-vocab-control__btn:hover { color: var(--gray-900); }
+.ptc-vocab-control__btn.is-active {
+  background: #fff;
+  color: var(--primary);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.04);
+}
+.ptc-vocab {
+  border: 1px solid var(--gray-200);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.ptc-vocab__tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+.ptc-vocab__swatch-pair {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.ptc-vocab__chip {
+  position: relative;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  border: 1px solid rgba(0,0,0,0.08);
+  cursor: help;
+  transition: transform 120ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 120ms ease;
+}
+.ptc-vocab__chip:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px -4px rgba(0,0,0,0.18);
+  z-index: 2;
+}
+.ptc-vocab__chip[data-tip]:hover::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: pre-line;
+  background: #1c1c25;
+  color: #f5f5fa;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.45;
+  padding: 8px 12px;
+  border-radius: 8px;
+  box-shadow: 0 12px 28px -8px rgba(0,0,0,0.4);
+  z-index: 30;
+  text-align: center;
+  min-width: 200px;
+  pointer-events: none;
+}
+.ptc-vocab__chip[data-tip]:hover::before {
+  content: "";
+  position: absolute;
+  bottom: calc(100% + 2px);
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 8px;
+  height: 8px;
+  background: #1c1c25;
+  z-index: 30;
+  pointer-events: none;
+}
+.ptc-vocab__row {
+  display: grid;
+  grid-template-columns: 200px 110px 1fr;
+  gap: 16px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--gray-150);
+  align-items: center;
+  font-size: 14px;
+}
+.ptc-vocab__row:last-child { border-bottom: none; }
+.ptc-vocab__row.h {
+  background: var(--gray-50);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--gray-500);
+  text-transform: uppercase;
+}
+.ptc-vocab__name {
+  font-weight: 600;
+}
+.ptc-vocab__swatch {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.ptc-vocab__swatch i {
+  width: 14px; height: 14px;
+  border-radius: 4px;
+  display: inline-block;
+}
+.ptc-vocab__meaning { color: var(--gray-700); line-height: 1.5; }
+@media (max-width: 700px) {
+  .ptc-vocab__row { grid-template-columns: 1fr; gap: 4px; padding: 12px 14px; }
+}
+
+/* ───────────── Notification touchpoints ───────────── */
+.ptc-notify {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ptc-notify__row {
+  display: grid;
+  grid-template-columns: 180px 100px 1fr;
+  gap: 16px;
+  align-items: baseline;
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--gray-200);
+}
+.ptc-notify__row:last-child { border-bottom: none; }
+.ptc-notify__moment {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--primary-deep);
+}
+.ptc-notify__channel {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--gray-500);
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.ptc-notify__content { font-size: 14px; color: var(--gray-800, var(--ink)); line-height: 1.5; }
+@media (max-width: 700px) {
+  .ptc-notify__row { grid-template-columns: 1fr; gap: 4px; }
+}
+
+/* ───────────── Components-used + edge-case lists ───────────── */
+.ptc-meta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-top: 8px;
+}
+@media (max-width: 900px) {
+  .ptc-meta-grid { grid-template-columns: 1fr; gap: 24px; }
+}
+.ptc-meta {
+  background: var(--gray-50);
+  border-radius: 12px;
+  padding: 24px 28px;
+}
+.ptc-meta-h {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--primary-deep);
+  text-transform: uppercase;
+  margin: 0 0 14px;
+}
+.ptc-meta ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.ptc-meta li {
+  font-size: 14px;
+  color: var(--gray-800, var(--ink));
+  line-height: 1.5;
+  padding-left: 20px;
+  position: relative;
+}
+.ptc-meta li::before {
+  content: "";
+  position: absolute;
+  left: 6px; top: 9px;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--primary-tint-2);
+}
+.ptc-meta--edges li::before { background: #fcd9a0; }
+
+/* Tag list for components used */
+.ptc-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.ptc-tag {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--primary-deep);
+  background: var(--primary-tint);
+  border-radius: 6px;
+  padding: 6px 10px;
+}
+
+/* ───────────── Responsive ───────────── */
+@media (max-width: 1180px) {
+  .ptc-page { --ptc-left-width: 220px; --ptc-left-gap: 32px; }
+  .ptc-layout { grid-template-columns: minmax(0, 1fr) 220px; gap: 40px; }
+  /* Squeeze the banner so it doesn't tower over its content once the
+     side nav narrows. min-height drops from 360→260, padding tightens. */
+  .ptc-hero { min-height: 260px; padding: 40px 44px; gap: 40px; }
+}
+@media (max-width: 900px) {
+  .ptc-page { display: block; padding: 0 24px; }
+  .ptc-nav-left-wrap { display: none; }
+  /* Restore bottom breathing room on the wrap so the divider doesn't sit
+     flush against the link-pill group. */
+  .ptc-hero-wrap { padding: 36px 0 32px; }
+  .ptc-hero { grid-template-columns: 1fr; padding: 32px 24px; gap: 24px; min-height: auto; }
+  .ptc-hero-h { font-size: 40px; }
+  .ptc-hero-viz { height: 220px; }
+  .ptc-link-pills { margin-top: 24px; }
+  .ptc-layout { grid-template-columns: minmax(0, 1fr); gap: 0; padding: 32px 0 0; }
+  .ptc-side { display: none; }
+  .ptc-pat-title { font-size: 30px; }
+}
+
+/* ───────────── Patterns index card thumbnail ─────────────
+   Scaled-down hero-banner — primary-dominant with subtle amber accent.
+   Shows actual pattern artifacts (mini preview cards) per category. */
+.pc-thumb {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+}
+.pc-thumb__inner {
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  /* Matches the lightness of components-page category cards (76% mix),
+     with amber pushed ~25% further across the gradient. */
+  background:
+    radial-gradient(circle at 100% 100%, rgba(255,168,39,0.18), transparent 70%),
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--primary-tint) 76%, #fff) 0%,
+      color-mix(in srgb, var(--primary-tint) 76%, #fff) 40%,
+      color-mix(in srgb, var(--amber-soft) 76%, #fff) 100%);
+}
+.pc-thumb__viz {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.pc-thumb__img {
+  position: absolute;
+  inset: 12.5%;
+  width: 75%;
+  height: 75%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+}
+.pc-thumb__viz .pcv {
+  position: absolute;
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--primary-tint-2) 60%, #fff);
+  box-shadow: 0 12px 24px -12px rgba(48,28,125,0.30), 0 2px 4px rgba(0,0,0,0.04);
+  padding: 12px 14px;
+  font-family: var(--font-body);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.pc-thumb__viz .pcv-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+}
+.pc-thumb__viz .pcv-sub {
+  font-size: 9px;
+  color: var(--gray-600);
+  letter-spacing: 0.01em;
+  line-height: 1.35;
+}
+.pc-thumb__viz .pcv-chip {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 3px 8px;
+  border-radius: 999px;
+  align-self: flex-start;
+  text-transform: uppercase;
+}
+.pc-thumb__viz .pcv-chip--success { background: #ebf6ef; color: #106c35; }
+.pc-thumb__viz .pcv-chip--warn    { background: #fff3e0; color: #8a5a14; }
+.pc-thumb__viz .pcv-chip--error   { background: #fdecea; color: #aa2920; }
+.pc-thumb__viz .pcv-chip--purple  { background: var(--primary-tint); color: var(--primary-deep); }
+.pc-thumb__viz .pcv-otp {
+  display: flex;
+  gap: 3px;
+}
+.pc-thumb__viz .pcv-otp i {
+  width: 14px; height: 16px;
+  border-radius: 3px;
+  border: 1px solid var(--gray-200);
+  font-style: normal;
+  font-size: 9px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  color: var(--ink);
+}
+.pc-thumb__viz .pcv-otp i.f { border-color: var(--primary); border-width: 1.5px; }
+.pc-thumb__viz .pcv-bar {
+  height: 4px;
+  background: var(--gray-100);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.pc-thumb__viz .pcv-bar i {
+  display: block;
+  height: 100%;
+  background: var(--primary);
+}
+.pc-thumb__viz .pcv-btn {
+  font-size: 9px;
+  font-weight: 700;
+  text-align: center;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background: var(--primary);
+  color: #fff;
+  align-self: flex-start;
+}
+.pc-thumb__viz .pcv-btn--danger  { background: #db372d; }
+.pc-thumb__viz .pcv-btn--success { background: #106c35; }
+.pc-thumb__viz .pcv-row {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 9px;
+  color: var(--gray-700);
+}
+.pc-thumb__viz .pcv-icon {
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 9px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+
+/* ───────────── Sticky pattern bar (per-pattern scroll header) ─────────────
+   Pill that pins below the navbar while the user reads through a pattern.
+   Updates label + links as each new pattern's heading crosses the
+   25%-from-top probe line.
+   Two nested grid wrappers mirror .ptc-page + .ptc-layout so the pill is
+   exactly as wide as .ptc-main. */
+.ptc-sticky-bar {
+  position: fixed;
+  top: 76px;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-12px);
+  transition: opacity 220ms ease, transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ptc-sticky-bar.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Mirrors .ptc-page — left-nav column + main column */
+.ptc-sticky-outer {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--ptc-outer-pad, 24px);
+  display: grid;
+  grid-template-columns: var(--ptc-left-width, 252px) 1fr;
+  column-gap: var(--ptc-left-gap, 56px);
+}
+/* Mirrors .ptc-layout — main + on-this-page rail */
+.ptc-sticky-inner {
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--ptc-side-width, 240px);
+  column-gap: var(--ptc-side-gap, 56px);
+}
+.ptc-sticky-pill {
+  pointer-events: auto;
+  grid-column: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  background: #fff;
+  border: 1px solid var(--gray-200);
+  border-radius: 999px;
+  padding: 8px 12px 8px 22px;
+  box-shadow: 0 10px 32px -16px rgba(48, 28, 125, 0.18),
+              0 2px 6px -2px rgba(0, 0, 0, 0.06);
+  min-width: 0;
+}
+.ptc-sticky-id {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  min-width: 0;
+  flex: 1 1 auto;
+  overflow: hidden;
+}
+.ptc-sticky-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--ux4g-text-brand-primary-default, var(--primary));
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.ptc-sticky-title {
+  font-family: var(--font-display, var(--font-body));
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+.ptc-sticky-links {
+  display: inline-flex;
+  gap: 8px;
+  flex: 0 0 auto;
+}
+/* Compact the meta-pill inside the sticky bar so it doesn't dominate. */
+.ptc-sticky-links .ptc-meta-pill {
+  padding: 5px 12px 5px 6px;
+  font-size: 12.5px;
+  gap: 7px;
+}
+.ptc-sticky-links .ptc-meta-pill .ptc-meta-ico {
+  width: 20px;
+  height: 20px;
+}
+
+@media (max-width: 1180px) {
+  /* On tablet the on-this-page rail collapses; the pill should fill main. */
+  .ptc-sticky-inner {
+    grid-template-columns: 1fr;
+    column-gap: 0;
+  }
+}
+/* Pickers (category + pattern dropdowns) live in the same slot as
+   .ptc-sticky-id but only show at ≤ 900px. */
+.ptc-sticky-pickers {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  /* Mobile/tablet: full-width sticky, dropdowns replace static label,
+     action pills collapse to icons but expand to show label on hover. */
+  .ptc-sticky-outer {
+    grid-template-columns: 1fr;
+    column-gap: 0;
+  }
+  .ptc-sticky-inner {
+    grid-column: 1;
+  }
+  .ptc-sticky-pill {
+    gap: 10px;
+    padding: 6px 6px 6px 8px;
+  }
+
+  /* Swap label for dropdowns */
+  .ptc-sticky-id {
+    display: none;
+  }
+  .ptc-sticky-pickers {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+  /* Thin divider between category + pattern triggers. */
+  .ptc-sticky-pickers .ptc-sticky-dd + .ptc-sticky-dd::before {
+    content: "";
+    display: inline-block;
+    width: 1px;
+    height: 16px;
+    background: var(--gray-300);
+    margin-right: 8px;
+    flex-shrink: 0;
+    align-self: center;
+  }
+  .ptc-sticky-pickers .ptc-sticky-dd + .ptc-sticky-dd {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* Action pills: icon-only by default, label slides in on hover. */
+  .ptc-sticky-links .ptc-meta-pill {
+    padding: 4px;
+    gap: 0;
+    overflow: hidden;
+    transition: gap 220ms cubic-bezier(0.22, 1, 0.36, 1),
+                padding 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .ptc-sticky-links .ptc-meta-pill span:last-child {
+    max-width: 0;
+    opacity: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: max-width 240ms cubic-bezier(0.22, 1, 0.36, 1),
+                opacity 180ms ease;
+  }
+  .ptc-sticky-links .ptc-meta-pill:hover,
+  .ptc-sticky-links .ptc-meta-pill:focus-visible {
+    padding: 4px 12px 4px 6px;
+    gap: 7px;
+  }
+  .ptc-sticky-links .ptc-meta-pill:hover span:last-child,
+  .ptc-sticky-links .ptc-meta-pill:focus-visible span:last-child {
+    max-width: 140px;
+    opacity: 1;
+  }
+}
+
+/* ───── Sticky dropdowns ───── */
+.ptc-sticky-dd {
+  position: relative;
+  min-width: 0;
+}
+.ptc-sticky-dd.cat { flex: 0 1 auto; }
+.ptc-sticky-dd.pat { flex: 1 1 auto; min-width: 0; }
+
+/* Ghost trigger: no border, no fill — purely text + chevron.
+   Hover/open signal: chevron rotates a quarter turn (closed → 45°,
+   open → 180°), so the user gets affordance without chrome. */
+.ptc-sticky-dd__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 2px;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  font: inherit;
+  color: var(--ink);
+  cursor: pointer;
+  max-width: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+.ptc-sticky-dd__trigger:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+/* Subtle: caret nudges down a touch and color firms up. */
+.ptc-sticky-dd__trigger:hover .ptc-sticky-caret {
+  color: var(--ink);
+  transform: translateY(1px);
+}
+.ptc-sticky-dd.is-open .ptc-sticky-caret {
+  transform: rotate(180deg);
+}
+.ptc-sticky-dd__trigger .ptc-sticky-dd__num {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ux4g-text-brand-primary-default, var(--primary));
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.ptc-sticky-dd__label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+.ptc-sticky-caret {
+  color: var(--gray-500);
+  flex-shrink: 0;
+  transition: transform 180ms ease;
+}
+.ptc-sticky-dd.is-open .ptc-sticky-caret { transform: rotate(180deg); }
+
+.ptc-sticky-dd__menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: max(220px, 100%);
+  max-width: 320px;
+  max-height: min(60vh, 420px);
+  overflow-y: auto;
+  list-style: none;
+  margin: 0;
+  padding: 6px;
+  background: #fff;
+  border: 1px solid var(--gray-200);
+  border-radius: 14px;
+  box-shadow: 0 18px 40px -12px rgba(48, 28, 125, 0.18),
+              0 4px 12px -4px rgba(0, 0, 0, 0.08);
+  z-index: 50;
+}
+.ptc-sticky-dd__menu li { margin: 0; }
+.ptc-sticky-dd__menu a,
+.ptc-sticky-dd__menu button {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 13.5px;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 120ms;
+}
+.ptc-sticky-dd__menu a:hover,
+.ptc-sticky-dd__menu button:hover {
+  background: var(--gray-50, #f7f7f8);
+}
+.ptc-sticky-dd__menu .is-active {
+  background: rgba(106, 78, 255, 0.08);
+  color: var(--primary);
+}
+.ptc-sticky-dd__menu .is-active .ptc-sticky-dd__num {
+  color: var(--primary);
+}
+.ptc-sticky-dd__menu .ptc-sticky-dd__num {
+  flex-shrink: 0;
+  min-width: 40px;
+}
+
+
+/* ─────────── Pattern Screens viewer ───────────
+   Replaces the static screens grid on pattern pages that ship real Figma
+   screenshots. Device toggle + layout selector + carousel + fullscreen
+   lightbox. No card chrome around each screen — image + caption only. */
+.ptc-pscreens {
+  --pscreens-radius: 14px;
+}
+
+/* Controls row: device tabs on the left, layout chips on the right */
+.ptc-pscreens-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+.ptc-pscreens-devices {
+  display: inline-flex;
+  background: var(--gray-100);
+  border-radius: 999px;
+  padding: 3px;
+}
+.ptc-pscreens-device {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gray-500);
+  padding: 7px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  transition: background 160ms, color 160ms;
+}
+.ptc-pscreens-device:hover { color: var(--ink); }
+.ptc-pscreens-device.is-active {
+  background: #fff;
+  color: var(--primary);
+  box-shadow: 0 1px 3px rgba(48, 28, 125, 0.10);
+}
+
+.ptc-pscreens-layouts {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.ptc-pscreens-layout-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  margin-right: 6px;
+}
+.ptc-pscreens-layout-chip {
+  appearance: none;
+  border: 1px solid var(--gray-200);
+  background: #fff;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--gray-700);
+  padding: 6px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 140ms, border-color 140ms, color 140ms;
+}
+.ptc-pscreens-layout-chip:hover {
+  border-color: var(--gray-300);
+  color: var(--ink);
+}
+.ptc-pscreens-layout-chip.is-active {
+  background: var(--primary-tint);
+  border-color: var(--primary-tint-2);
+  color: var(--primary-deep);
+}
+
+/* Carousel: one persistent device card; nav controls overlay the frame. */
+.ptc-pscreens-carousel {
+  display: block;
+}
+.ptc-pscreens-stage {
+  min-width: 0;
+  position: relative;
+}
+.ptc-pscreens-screen {
+  display: none;
+  margin: 0;
+  animation: ptc-pscreens-fade 280ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ptc-pscreens-screen.is-active { display: flex; flex-direction: column; gap: 16px; align-items: center; }
+@keyframes ptc-pscreens-fade {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Image button — wraps the framed device. No card chrome on the button itself. */
+.ptc-pscreens-img-btn {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: zoom-in;
+  display: block;
+  position: relative;
+  width: 100%;
+}
+.ptc-pscreens-img-btn:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 4px;
+  border-radius: var(--pscreens-radius);
+}
+
+/* Outer brand frame around the device mock. Uses the Figma-designed frame
+   background (orange-amber + decorative patterns) as a full-bleed image.
+   The device wrapper is absolutely positioned inside, at the same spot as
+   the placeholder rectangle in the Figma frame. */
+.ptc-device-frame {
+  display: block;            /* aspect-ratio needs a block-level box */
+  position: relative;
+  width: 100%;
+  border-radius: var(--pscreens-radius);
+  overflow: hidden;
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.ptc-pscreens-img-btn:hover .ptc-device-frame { transform: scale(1.005); }
+.ptc-device-frame--desktop {
+  aspect-ratio: 883 / 360;
+  background-image: url("../assets/images/Device mocks/desktop-frame-bg.png");
+}
+.ptc-device-frame--mobile {
+  /* Figma mobile frame is now 883 × 501 (same width as desktop, fresh export
+     in assets/images/Device mocks/mobile-frame-bg.png). */
+  aspect-ratio: 883 / 501;
+  background-image: url("../assets/images/Device mocks/mobile-frame-bg.png");
+}
+
+/* The device wrapper sits absolutely positioned inside the frame, at the
+   same coordinates as the placeholder rectangle in the Figma source. The
+   frame's overflow: hidden clips the device where it overshoots. */
+.ptc-device {
+  position: absolute;
+  display: block;
+}
+.ptc-device--desktop {
+  left: 15.063%;
+  top: 0;
+  width: 69.989%;
+  /* Aspect ratio of the MacBook mock — height follows from width. */
+  aspect-ratio: 3540 / 2300;
+}
+.ptc-device--mobile {
+  /* Frame now 883 × 501 with the iPhone placeholder at (328, 17), 228×467. */
+  left: 37.146%;
+  top: 3.393%;
+  width: 25.821%;
+  aspect-ratio: 1350 / 2760;
+}
+
+/* The mock PNG sits on top, filling the device wrapper exactly. */
+.ptc-device-mock {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+/* Scrollable screen container — sits BEHIND the mock, positioned + sized
+   to fit the transparent screen cutout. The img inside has width: 100%
+   and natural height, so when the content is taller than the cutout the
+   container scrolls. Coords are % of the mock PNG dimensions, slightly
+   expanded so anti-aliased bezel edges don't leak the frame colour through.
+   Scrollbar hidden so the screen reads clean; touch-action and overscroll
+   isolate the scroll from the page. */
+.ptc-device-screen-scroll {
+  position: absolute;
+  display: block;
+  background: #fff;
+  /* In-card view is non-scrolling: the screen image is clipped to the device
+     cutout from the top, so the card reads as a static preview. Scrolling is
+     only enabled in the fullscreen lightbox so the citizen sees the full screen
+     there. Disabling here keeps the carousel feeling like a gallery, not a tray
+     of interactive surfaces. */
+  overflow: hidden;
+  /* No z-index — the mock IMG comes AFTER this element in DOM order, so it
+     naturally stacks on top. Giving the scroll container a z-index would
+     pull it above the mock and hide the iPhone's Dynamic Island. */
+}
+.ptc-device-screen-scroll::-webkit-scrollbar { display: none; }
+
+.ptc-device--desktop .ptc-device-screen-scroll {
+  /* Cutout includes the camera-notch area. The mock's opaque notch masks
+     the screen image at the very top. */
+  top: 9.0%;
+  left: 8.9%;
+  width: 82.2%;
+  height: 82.0%;
+}
+.ptc-device--mobile .ptc-device-screen-scroll {
+  top: 2.1%;
+  left: 4.9%;
+  width: 90.2%;
+  height: 95.8%;
+  /* Round the screen corners more aggressively (computed against the
+     narrower of width/height so the mask matches the iPhone's screen
+     curvature instead of stretching elliptically). */
+  border-radius: 14% / 7%;
+}
+
+.ptc-device-screen-img {
+  display: block;
+  width: 100%;
+  height: auto;            /* natural aspect so it scrolls when too tall */
+  user-select: none;
+}
+
+/* Scroll hint badge — horizontal pill, anchored to the BOTTOM-RIGHT of the
+   device. Sits just outside the device, aligned with the bottom of the
+   mock, inside the orange-amber frame area. */
+.ptc-device-scroll-hint {
+  position: absolute;
+  left: calc(100% + 14px);
+  bottom: 0;                    /* aligned with bottom edge of device */
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px 6px 10px;
+  background: rgba(23, 23, 23, 0.82);
+  color: #fff;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  pointer-events: none;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 3;
+  white-space: nowrap;
+  animation: ptc-pscreens-fade 320ms ease-out;
+}
+.ptc-device-scroll-arrow {
+  display: inline-flex;
+  animation: ptc-scroll-bob 1.4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+@keyframes ptc-scroll-bob {
+  0%   { transform: translateY(-2px); opacity: 0.7; }
+  50%  { transform: translateY( 2px); opacity: 1; }
+  100% { transform: translateY(-2px); opacity: 0.7; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ptc-device-scroll-arrow { animation: none; }
+}
+
+/* Both mobile and desktop frames render at the same width (920px max) so
+   the carousel switches cleanly between devices without the card jumping
+   in size. The mobile frame is just shorter (aspect 883/501 vs 883/360). */
+.ptc-pscreens-img-btn {
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.ptc-pscreens-zoom-hint {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  background: rgba(23, 23, 23, 0.78);
+  color: #fff;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 200ms, transform 200ms;
+  pointer-events: none;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.ptc-pscreens-img-btn:hover .ptc-pscreens-zoom-hint,
+.ptc-pscreens-img-btn:focus-visible .ptc-pscreens-zoom-hint {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Caption under each screen — no border, no card chrome. */
+.ptc-pscreens-meta {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto;
+}
+.ptc-pscreens-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--primary-deep);
+}
+.ptc-pscreens-name {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin: 6px 0 6px;
+}
+.ptc-pscreens-desc {
+  font-size: 14px;
+  color: var(--gray-700);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Prev/Next nav controls — positioned ABSOLUTE inside the device frame,
+   vertically centered, just inside each edge. The control is a <span> with
+   role="button" so it can sit inside the parent <button> without nesting
+   native buttons (invalid HTML). */
+.ptc-pscreens-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.95);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+  cursor: pointer;
+  z-index: 3;
+  box-shadow: 0 6px 14px -6px rgba(48, 28, 125, 0.30),
+              0 2px 4px -2px rgba(0, 0, 0, 0.10);
+  transition: background 140ms, color 140ms, transform 140ms;
+  -webkit-tap-highlight-color: transparent;
+}
+.ptc-pscreens-nav--prev { left: 16px; }
+.ptc-pscreens-nav--next { right: 16px; }
+.ptc-pscreens-nav:hover {
+  background: #fff;
+  color: var(--primary);
+  transform: translateY(-50%) scale(1.06);
+}
+.ptc-pscreens-nav:active { transform: translateY(-50%) scale(0.96); }
+.ptc-pscreens-nav:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 3px;
+}
+
+/* Dots index */
+.ptc-pscreens-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+.ptc-pscreens-dot {
+  appearance: none;
+  border: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--gray-200);
+  cursor: pointer;
+  padding: 0;
+  transition: background 140ms, transform 140ms, width 200ms;
+}
+.ptc-pscreens-dot:hover { background: var(--gray-300); }
+.ptc-pscreens-dot.is-active {
+  background: var(--primary);
+  width: 24px;
+}
+
+/* Fullscreen lightbox — Mandela-pattern backdrop (mobile or desktop variant)
+   layered over a soft dim, with the page content blurred behind. */
+.ptc-pscreens-lightbox {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 12, 30, 0.78);
+  background-image: url("../assets/images/Device mocks/desktop-fullscreen-bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 60px;
+  animation: ptc-pscreens-fade 220ms ease-out;
+}
+.ptc-pscreens-lightbox.is-mobile {
+  background-image: url("../assets/images/Device mocks/mobile-fullscreen-bg.png");
+}
+.ptc-pscreens-lightbox-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  appearance: none;
+  border: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 140ms;
+}
+.ptc-pscreens-lightbox-close:hover { background: rgba(255, 255, 255, 0.24); }
+
+.ptc-pscreens-lightbox-figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  max-width: 100%;
+  max-height: 100%;
+  position: relative;
+}
+
+/* Scrollable container for the lightbox image. Width fixed by viewport;
+   image inside renders at source aspect (no Figma padding strip), height
+   auto, container scrolls vertically when the image is taller than the
+   viewport. Scrollbar hidden so it doesn't reveal an empty strip on
+   overflowing screens. */
+.ptc-pscreens-lightbox-scroll {
+  position: relative;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 32px 80px -16px rgba(0, 0, 0, 0.5);
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;          /* Firefox */
+  -ms-overflow-style: none;       /* IE/Edge */
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  overscroll-behavior: contain;
+}
+.ptc-pscreens-lightbox-scroll::-webkit-scrollbar { display: none; }
+.ptc-pscreens-lightbox-figure.is-desktop .ptc-pscreens-lightbox-scroll {
+  width: min(1400px, calc(100vw - 160px));
+  max-height: calc(100vh - 180px);
+  /* Aspect set on the SCROLL container so the image gets its native width
+     and the container window matches the source frame's 1440:900 shape. */
+  aspect-ratio: 1440 / 900;
+}
+.ptc-pscreens-lightbox-figure.is-mobile .ptc-pscreens-lightbox-scroll {
+  width: min(380px, calc(100vw - 80px));
+  max-height: calc(100vh - 180px);
+  aspect-ratio: 390 / 844;
+}
+
+.ptc-pscreens-lightbox-scroll img {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* Use object-fit cover on the IMG so the figma export padding (the
+     extra ~16px on each side of 2912×1808 vs the source 2880×1800) crops
+     out cleanly. The aspect-ratio on the container clips the overflow. */
+  object-fit: cover;
+  object-position: center top;
+}
+
+/* Lightbox scroll hint — same look as the card one, anchored to figure. */
+.ptc-pscreens-lightbox-scroll-hint {
+  position: absolute;
+  bottom: 76px;          /* sit above the caption */
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px 6px 10px;
+  background: rgba(23, 23, 23, 0.78);
+  color: #fff;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  pointer-events: none;
+  z-index: 4;
+}
+.ptc-pscreens-lightbox-figure figcaption {
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+  text-align: center;
+  max-width: 720px;
+}
+.ptc-pscreens-lightbox-figure strong {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -0.01em;
+}
+.ptc-pscreens-lightbox-figure span {
+  font-size: 13.5px;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.55;
+}
+
+.ptc-pscreens-lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  appearance: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  border: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 140ms, transform 140ms;
+}
+.ptc-pscreens-lightbox-nav:hover { background: rgba(255, 255, 255, 0.24); }
+.ptc-pscreens-lightbox-nav.prev { left: 24px; }
+.ptc-pscreens-lightbox-nav.next { right: 24px; }
+
+@media (max-width: 900px) {
+  .ptc-pscreens-carousel { grid-template-columns: 36px 1fr 36px; gap: 10px; }
+  .ptc-pscreens-nav { width: 36px; height: 36px; }
+  .ptc-pscreens-lightbox { padding: 20px 16px; }
+  .ptc-pscreens-lightbox-nav.prev { left: 8px; }
+  .ptc-pscreens-lightbox-nav.next { right: 8px; }
+}

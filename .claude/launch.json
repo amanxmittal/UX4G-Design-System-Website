@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "ux4g",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["browser-sync", "start", "--server", "--files", "*.html,css/*.css", "--no-notify", "--no-open"],
+      "port": 3003,
+      "autoPort": true
+    }
+  ]
+}

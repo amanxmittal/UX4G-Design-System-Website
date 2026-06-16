@@ -1,0 +1,401 @@
+/* ────────────────────────────────────────────────────────────
+   Made by You — listing pages (All Solutions, All Portals)
+   Reuses the Foundations/Colour-style header (.mbys-header)
+   defined in made-by-you-solution.css for hierarchy parity.
+   ──────────────────────────────────────────────────────────── */
+
+.mbyl-page { background: #fff; color: var(--ink); min-height: 100vh; }
+
+/* ─────────────── Filter bar ─────────────── */
+.mbyl-filters {
+  padding: 32px 0 0;
+  border-top: none;
+}
+.mbyl-filters-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 28px;
+  align-items: center;
+}
+.mbyl-filter-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  flex: 1 0 100%;
+}
+.mbyl-filter-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--gray-500);
+  margin-right: 4px;
+}
+
+/* Filter chip — render as a <button>, lean on the UX4G DS classes
+   (.ux4g-filter-chip-md / .active) for visual treatment. The bits below
+   are layout-only: button reset, leading gap, and the count badge that
+   sits inside the chip. */
+.mbyl-filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding-inline: var(--ux4g-padding-s, 12px);
+  font-family: var(--font-body);
+  cursor: pointer;
+  user-select: none;
+  appearance: none;
+  outline: none;
+}
+.mbyl-filter-chip:focus-visible {
+  box-shadow: 0 0 0 3px rgba(106,78,255,0.18);
+}
+.mbyl-filter-chip .count {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gray-500);
+  background: var(--ux4g-bg-neutral-subtle, var(--gray-150));
+  padding: 1px 8px;
+  border-radius: 999px;
+  transition: color 160ms, background 160ms;
+}
+.mbyl-filter-chip.active .count {
+  color: var(--ux4g-bg-primary-strong);
+  background: rgba(106,78,255,0.12);
+}
+
+/* ─────────────── Search ─────────────── */
+.mbyl-search {
+  position: relative;
+  /* flex-basis: 100% forces the search onto its own row below the chip group;
+     max-width then caps the visible input width. margin-top adds breathing room. */
+  flex: 0 0 100%;
+  max-width: 320px;
+  margin-left: 0;
+  margin-top: 8px;
+}
+.mbyl-search input {
+  width: 100%;
+  height: 40px;
+  padding: 0 16px 0 38px;
+  border: 1px solid var(--gray-200);
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  background: #fff;
+  color: var(--ink);
+  transition: border-color 140ms, box-shadow 140ms;
+}
+.mbyl-search input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(106,78,255,0.12);
+}
+.mbyl-search input::placeholder { color: var(--gray-400); }
+.mbyl-search-ic {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px; height: 16px;
+  color: var(--gray-400);
+  pointer-events: none;
+}
+
+/* ─────────────── Result meta + clear ─────────────── */
+.mbyl-result-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 28px 0 20px;
+  padding-top: 22px;
+  border-top: 1px solid var(--gray-150);
+}
+.mbyl-result-count {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--gray-500);
+}
+.mbyl-result-count strong { color: var(--ink); font-weight: 600; }
+.mbyl-clear {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: background 140ms;
+}
+.mbyl-clear:hover { background: var(--primary-tint); }
+
+/* ─────────────── Submit banner (above grid) ─────────────── */
+.mbyl-submit-banner {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 24px;
+  padding: 22px 28px;
+  margin: 0 0 24px;
+  border-radius: 16px;
+  text-decoration: none;
+  color: var(--ink);
+  transition: transform 180ms cubic-bezier(.16,1,.3,1), box-shadow 180ms;
+  position: relative;
+  overflow: hidden;
+}
+.mbyl-submit-banner.solution {
+  background: linear-gradient(135deg, #FBF9FF 0%, #F2EFFF 60%, #E8E3FF 100%);
+  border: 1px solid var(--primary-tint-2, #DDD5FB);
+  color: var(--primary-deep);
+}
+.mbyl-submit-banner.portal {
+  background: linear-gradient(135deg, #FFFDF5 0%, #FFF6E2 60%, #FFEBC0 100%);
+  border: 1px solid #F4DDA8;
+  color: #6B4814;
+}
+.mbyl-submit-banner:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 32px -20px rgba(74, 43, 194, 0.35);
+}
+.mbyl-submit-banner.portal:hover {
+  box-shadow: 0 14px 32px -20px rgba(180, 128, 30, 0.35);
+}
+.mbyl-submit-art {
+  width: 88px;
+  height: 88px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  color: inherit;
+}
+.mbyl-submit-art svg { width: 56px; height: 56px; }
+.mbyl-submit-text { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.mbyl-submit-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.mbyl-submit-title {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  margin: 0;
+}
+.mbyl-submit-sub {
+  font-size: 13.5px;
+  line-height: 1.5;
+  margin: 0;
+  color: var(--ink);
+  opacity: 0.78;
+  max-width: 60ch;
+}
+.mbyl-submit-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 13.5px;
+  font-weight: 600;
+  background: #fff;
+  color: inherit;
+  border: 1px solid currentColor;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.mbyl-submit-banner.solution .mbyl-submit-cta { background: var(--primary); color: #fff; border-color: var(--primary); }
+.mbyl-submit-banner.portal .mbyl-submit-cta { background: #6B4814; color: #fff; border-color: #6B4814; }
+.mbyl-submit-banner:hover .mbyl-submit-cta svg { transform: translateX(3px); transition: transform 180ms; }
+
+@media (max-width: 760px) {
+  .mbyl-submit-banner { grid-template-columns: 1fr; gap: 14px; padding: 20px 22px; }
+  .mbyl-submit-art { width: 56px; height: 56px; }
+  .mbyl-submit-art svg { width: 34px; height: 34px; }
+  .mbyl-submit-cta { align-self: flex-start; }
+}
+
+/* ─────────────── Grid (solutions) ─────────────── */
+.mbyl-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  padding-bottom: 80px;
+}
+@media (max-width: 960px) { .mbyl-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .mbyl-grid { grid-template-columns: 1fr; } }
+
+/* ─────────────── Portal listing card ─────────────────────────
+   Reuse .portal-card-h from made-by-you.css verbatim — same chrome,
+   same thumb-pop hover. Override only the carousel-only sizing so it
+   sits inside the 3-col grid at ~75% of its hero scale. */
+.mbyl-grid .portal-card-h {
+  flex: none;
+  width: 100%;
+  height: 420px;
+}
+@media (max-width: 960px) { .mbyl-grid .portal-card-h { height: 380px; } }
+@media (max-width: 640px) { .mbyl-grid .portal-card-h { height: 340px; } }
+.mbyl-grid .portal-card-h .portal-body {
+  padding: 18px 20px 20px;
+}
+.mbyl-grid .portal-card-h .portal-name {
+  font-size: 17px;
+  line-height: 1.25;
+}
+.mbyl-grid .portal-card-h .portal-org {
+  font-size: 13px;
+  margin-bottom: 0;
+}
+
+/* ─────────────── Empty state ─────────────── */
+.mbyl-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 80px 20px;
+  background: #FAFAFB;
+  border: 1px dashed var(--gray-300);
+  border-radius: 18px;
+}
+.mbyl-empty h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 22px;
+  margin: 0 0 8px;
+}
+.mbyl-empty p {
+  font-size: 14px;
+  color: var(--gray-500);
+  margin: 0;
+  max-width: 380px;
+  margin-inline: auto;
+  line-height: 1.55;
+}
+
+/* ─────────────── "View all" CTA below the Made by You grid ─────────────── */
+.mby-grid-foot {
+  display: flex;
+  justify-content: center;
+  margin: 36px 0 12px;
+}
+.mby-grid-foot-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 14px 14px 20px;
+  background: #fff;
+  border: 1px solid var(--amber-border, #FCD9A0);
+  border-radius: 999px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 220ms,
+              box-shadow 220ms;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.8) inset,
+              0 6px 18px -10px rgba(154,94,0,0.18);
+  position: relative;
+  overflow: hidden;
+}
+.mby-grid-foot-link::before {
+  /* warm wash that grows out from the right on hover */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 50%, rgba(255,168,39,0.10) 100%);
+  opacity: 0;
+  transition: opacity 220ms ease;
+  pointer-events: none;
+}
+.mby-grid-foot-link:hover {
+  transform: translateY(-2px);
+  border-color: var(--amber);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.8) inset,
+              0 18px 36px -18px rgba(154,94,0,0.35);
+}
+.mby-grid-foot-link:hover::before { opacity: 1; }
+.mby-grid-foot-link:active { transform: translateY(-1px); }
+
+.mby-grid-foot-link .dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--amber);
+  box-shadow: 0 0 0 3px rgba(255,168,39,0.22);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+.mby-grid-foot-link .text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  text-align: left;
+  position: relative;
+  z-index: 1;
+}
+.mby-grid-foot-link .lead {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+  line-height: 1.25;
+}
+.mby-grid-foot-link .meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--gray-500);
+  font-weight: 500;
+  line-height: 1.4;
+}
+.mby-grid-foot-link .arr-badge {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--amber);
+  color: #1c1100;
+  display: grid;
+  place-items: center;
+  margin-left: 4px;
+  flex-shrink: 0;
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
+              background 220ms;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.5) inset,
+              0 6px 14px -6px rgba(255,168,39,0.55);
+  position: relative;
+  z-index: 1;
+}
+.mby-grid-foot-link .arr-badge svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.mby-grid-foot-link:hover .arr-badge { transform: rotate(-2deg) scale(1.04); }
+.mby-grid-foot-link:hover .arr-badge svg { transform: translateX(2px); }
+
+/* Narrow screens — collapse to single-line label */
+@media (max-width: 520px) {
+  .mby-grid-foot-link { padding: 12px 12px 12px 16px; gap: 12px; }
+  .mby-grid-foot-link .meta { display: none; }
+  .mby-grid-foot-link .arr-badge { width: 32px; height: 32px; }
+}
+
+/* ─────────────── Responsive ─────────────── */
+@media (max-width: 720px) {
+  .mbyl-filters-row { gap: 12px; }
+  .mbyl-search { margin-left: 0; max-width: none; }
+  .mbyl-result-bar { flex-direction: column; align-items: flex-start; gap: 10px; }
+}

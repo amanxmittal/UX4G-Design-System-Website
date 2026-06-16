@@ -1,0 +1,213 @@
+/* ─────────────── Elevation page ─────────────── */
+
+/* Shadow level cards */
+.el-levels { display: flex; flex-direction: column; gap: 16px; }
+.el-card { display: grid; grid-template-columns: 180px 1fr; border: 1px solid var(--gray-200); border-radius: 12px; overflow: hidden; background: #fff; }
+.el-preview { display: grid; place-items: center; padding: 28px; background: var(--gray-50); border-right: 1px solid var(--gray-150); }
+.el-preview > * { width: 100px; height: 80px; background: #fff; border-radius: 10px; border: 1px solid var(--gray-200); display: grid; place-items: center; }
+.el-level-badge { font-family: var(--font-mono); font-size: 13px; font-weight: 700; color: var(--primary-deep); letter-spacing: 0.04em; }
+.el-info { padding: 22px 24px; display: flex; flex-direction: column; justify-content: center; gap: 6px; }
+.el-name { font-family: var(--font-body); font-weight: 600; font-size: 20px; letter-spacing: -0.015em; }
+.el-shadow-val { font-family: var(--font-mono); font-size: 11.5px; color: var(--gray-500); letter-spacing: 0.02em; word-break: break-all; }
+.el-desc { font-size: 14px; color: var(--gray-700); line-height: 1.45; margin-top: 4px; }
+
+/* Usage cards */
+.el-usage-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.el-usage-card { border: 1px solid var(--gray-200); border-radius: 10px; padding: 22px 24px; background: #fff; }
+.el-usage-tag { font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.08em; color: var(--primary); margin-bottom: 10px; }
+.el-usage-card h3 { font-family: var(--font-body); font-weight: 600; font-size: 18px; letter-spacing: -0.015em; margin: 0 0 8px; }
+.el-usage-card p { font-size: 14px; color: var(--gray-700); line-height: 1.5; margin: 0; }
+
+/* ─────────────── Elevation page blocks ─────────────── */
+.ev-concept {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.ev-concept-card {
+  padding: 22px 22px 24px;
+  background: #fff;
+  border: 1px solid var(--gray-200);
+  border-radius: 14px;
+}
+.ev-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--primary-deep);
+  background: var(--primary-tint);
+  padding: 3px 10px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+.ev-concept-card h3 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 19px;
+  letter-spacing: -0.015em;
+  margin: 0 0 6px;
+}
+.ev-concept-card p {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--gray-700);
+  margin: 0;
+}
+.ev-concept-card code {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--primary-deep);
+  background: var(--primary-tint);
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+.ev-when-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.ev-when {
+  padding: 22px 24px;
+  border: 1.5px solid;
+  border-radius: 14px;
+  background: #fff;
+}
+.ev-when.good { border-color: #B9DDC5; background: linear-gradient(180deg, #F5FBF7 0%, #fff 40%); }
+.ev-when.bad  { border-color: #F4B9B5; background: linear-gradient(180deg, #FDECEB 0%, #fff 40%); }
+.ev-when h3 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: -0.015em;
+  margin: 0 0 12px;
+}
+.ev-when.good h3 { color: var(--success); }
+.ev-when.bad  h3 { color: var(--danger); }
+.ev-when ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ev-when li {
+  position: relative;
+  padding: 8px 12px 8px 26px;
+  font-size: 14px;
+  color: var(--gray-700);
+  line-height: 1.5;
+  background: #fff;
+  border: 1px solid var(--gray-150);
+  border-radius: 8px;
+}
+.ev-when.good li::before { content: "✓"; position: absolute; left: 10px; top: 8px; color: var(--success); font-weight: 700; }
+.ev-when.bad li::before  { content: "✕"; position: absolute; left: 10px; top: 8px; color: var(--danger);  font-weight: 700; }
+
+.ev-levels-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+.ev-level-card {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 22px;
+  align-items: center;
+  padding: 24px;
+  border: 1px solid var(--gray-200);
+  border-radius: 14px;
+  background: #FAFAFA;
+}
+.ev-level-stage {
+  height: 160px;
+  background: #fff;
+  border: 1px solid var(--gray-150);
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+}
+.ev-level-tile {
+  width: 100px;
+  height: 100px;
+  background: #fff;
+  border: 1px solid var(--gray-200);
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--gray-700);
+}
+.ev-level-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ev-level-spec {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.ev-level-spec--none {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--gray-500);
+}
+.ev-level-layer {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--gray-700);
+}
+.ev-layer-tag {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--primary-deep);
+  background: var(--primary-tint);
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-right: 4px;
+}
+.ev-layer-axis em {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--gray-500);
+  margin-right: 4px;
+}
+.ev-layer-sep { color: var(--gray-300); }
+.ev-level-css {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--gray-700);
+  background: var(--gray-50, #fafafa);
+  border: 1px solid var(--gray-150);
+  border-radius: 6px;
+  padding: 6px 9px;
+  margin-top: 6px;
+  line-height: 1.5;
+  word-break: break-word;
+  user-select: all;
+  cursor: text;
+}
+.ev-level-use {
+  font-size: 14.5px;
+  color: var(--gray-700);
+  line-height: 1.55;
+}
+
+@media (max-width: 720px) {
+  .ev-concept, .ev-when-grid { grid-template-columns: 1fr; }
+  .ev-level-card { grid-template-columns: 1fr; }
+}

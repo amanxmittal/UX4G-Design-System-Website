@@ -1,0 +1,7 @@
+:root {
+  --ux4g-blur-none: var(--ux4g-blur-none);
+  --ux4g-blur-subtle: var(--ux4g-blur-1);
+  --ux4g-blur-soft: var(--ux4g-blur-2);
+  --ux4g-blur-medium: var(--ux4g-blur-3);
+  --ux4g-blur-strong: var(--ux4g-blur-4);
+}

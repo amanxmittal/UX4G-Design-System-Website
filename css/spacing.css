@@ -1,0 +1,129 @@
+/* ─────────────── Spacing page ─────────────── */
+
+.sp-scale { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--gray-200); border-radius: 12px; overflow: hidden; }
+.sp-row { display: grid; grid-template-columns: 260px 140px 80px 1fr; align-items: center; border-bottom: 1px solid var(--gray-150); min-height: 48px; }
+.sp-row:last-child { border-bottom: none; }
+.sp-bar-wrap { padding: 10px 18px; display: flex; align-items: center; }
+.sp-bar { height: 20px; background: linear-gradient(90deg, var(--primary-tint-2), var(--primary)); border-radius: 4px; min-width: 8px; transition: width 400ms ease; }
+.sp-token { font-family: var(--font-mono); font-size: 13px; font-weight: 600; color: var(--primary-deep); padding: 10px 0; }
+.sp-px { font-family: var(--font-mono); font-size: 13px; color: var(--ink); padding: 10px 0; }
+.sp-use { font-size: 14px; color: var(--gray-700); padding: 10px 18px; line-height: 1.4; }
+
+/* Component table */
+.sp-table { border: 1px solid var(--gray-200); border-radius: 10px; overflow: hidden; }
+.sp-table-head { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; padding: 12px 18px; background: var(--gray-50); border-bottom: 1px solid var(--gray-200); font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gray-500); }
+.sp-table-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; padding: 14px 18px; border-bottom: 1px solid var(--gray-150); font-size: 14px; }
+.sp-table-row:last-child { border-bottom: none; }
+.sp-cmp-name { font-weight: 600; color: var(--ink); }
+.sp-mono { font-family: var(--font-mono); font-size: 13px; color: var(--gray-700); }
+
+/* ─────────────── Spacing page-specific blocks ─────────────── */
+.sp-base-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 10px;
+  margin-top: 8px;
+}
+.sp-base-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px 18px 20px;
+  background: #FAFAFA;
+  border: 1px solid var(--gray-150);
+  border-radius: 10px;
+}
+.sp-base-bar {
+  height: 14px;
+  background: var(--primary);
+  border-radius: 3px;
+}
+.sp-base-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: 0.04em;
+}
+.sp-base-label em {
+  font-style: normal;
+  font-weight: 500;
+  color: var(--gray-500);
+  margin-left: 6px;
+}
+.sp-bar-cell { display: flex; align-items: center; min-height: 16px; }
+.sp-bar {
+  display: inline-block;
+  height: 10px;
+  background: var(--primary);
+  border-radius: 2px;
+}
+
+.sp-group { margin-bottom: 40px; }
+.sp-group:last-child { margin-bottom: 0; }
+.sp-group-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 6px;
+}
+.sp-group-sub {
+  font-size: 14.5px;
+  color: var(--gray-700);
+  line-height: 1.55;
+  margin: 0 0 14px;
+  max-width: 720px;
+}
+
+/* ─────────────── Spacing visual demos ─────────────── */
+.sp-vis {
+  display: inline-flex;
+  align-items: center;
+  border: 1px dashed var(--gray-200);
+  border-radius: 6px;
+  background: #FAFAFA;
+}
+.sp-vis-block {
+  width: 12px;
+  height: 12px;
+  background: var(--primary-deep);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.sp-vis-spacer {
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(106,78,255,0.20) 0 4px,
+    transparent 4px 8px
+  );
+  flex-shrink: 0;
+}
+.sp-vis-inline {
+  height: 32px;
+  padding: 0 10px;
+  gap: 0;
+}
+.sp-vis-inline .sp-vis-spacer { height: 12px; }
+.sp-vis-stack {
+  width: 56px;
+  flex-direction: column;
+  padding: 6px 0;
+  gap: 0;
+}
+.sp-vis-stack .sp-vis-spacer { width: 12px; }
+.sp-vis-padding {
+  position: relative;
+  background: rgba(106,78,255,0.10);
+  border-style: solid;
+  border-color: var(--primary);
+  min-width: 24px;
+  min-height: 24px;
+}
+.sp-vis-padding .sp-vis-inner {
+  display: block;
+  min-width: 22px;
+  min-height: 22px;
+  background: var(--primary-deep);
+  border-radius: 3px;
+}

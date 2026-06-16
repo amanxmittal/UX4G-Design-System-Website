@@ -1,0 +1,6 @@
+:root {
+  /* Opacity variables */
+  --ux4g-opacity-disabled: var(--ux4g-opacity-40);
+  --ux4g-opacity-hover: var(--ux4g-opacity-80);
+}
+

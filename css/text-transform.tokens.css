@@ -1,0 +1,6 @@
+:root {
+  --ux4g-text-transform-none: none;
+  --ux4g-text-transform-lowercase: lowercase;
+  --ux4g-text-transform-uppercase: uppercase;
+  --ux4g-text-transform-capitalize: capitalize;
+}

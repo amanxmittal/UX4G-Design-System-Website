@@ -1,0 +1,425 @@
+/* ─────────────── Layout page ─────────────── */
+
+/* Grid demo */
+.ly-grids { display: flex; flex-direction: column; gap: 20px; margin-bottom: 28px; }
+.ly-grid-demo { display: flex; flex-direction: column; gap: 8px; }
+.ly-grid-label { font-family: var(--font-mono); font-size: 11.5px; font-weight: 600; letter-spacing: 0.06em; color: var(--gray-500); text-transform: uppercase; }
+.ly-grid-cols { display: grid; gap: 4px; }
+.ly-grid-col { background: linear-gradient(180deg, var(--primary-tint-2) 0%, var(--primary-tint) 100%); border: 1px solid rgba(106,78,255,0.18); border-radius: 6px; height: 56px; display: grid; place-items: center; }
+.ly-grid-num { font-family: var(--font-mono); font-size: 11px; font-weight: 600; color: var(--primary-deep); }
+
+/* Template cards */
+.ly-template-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.ly-template-card { border: 1px solid var(--gray-200); border-radius: 12px; overflow: hidden; background: #fff; }
+.ly-tmpl-preview { background: var(--gray-50); padding: 16px; min-height: 120px; display: flex; flex-direction: column; gap: 8px; border-bottom: 1px solid var(--gray-150); }
+.ly-tmpl-bar { height: 8px; background: var(--gray-300); border-radius: 3px; width: 100%; }
+.ly-tmpl-body { flex: 1; display: flex; gap: 6px; align-items: stretch; min-height: 64px; }
+.ly-tmpl-single { width: 50%; margin: 0 auto; background: var(--primary-tint); border-radius: 4px; border: 1px dashed rgba(106,78,255,0.25); }
+.ly-tmpl-main { flex: 2; background: var(--primary-tint); border-radius: 4px; border: 1px dashed rgba(106,78,255,0.25); }
+.ly-tmpl-side { flex: 1; background: var(--gray-100); border-radius: 4px; border: 1px dashed var(--gray-300); }
+.ly-tmpl-card-c { flex: 1; background: var(--primary-tint); border-radius: 4px; border: 1px dashed rgba(106,78,255,0.25); }
+.ly-tmpl-dash-wide { flex: 2; background: var(--primary-tint); border-radius: 4px; border: 1px dashed rgba(106,78,255,0.25); }
+.ly-tmpl-dash-sm { flex: 1; background: var(--gray-100); border-radius: 4px; border: 1px dashed var(--gray-300); }
+.ly-tmpl-name { font-family: var(--font-body); font-weight: 600; font-size: 18px; letter-spacing: -0.015em; padding: 16px 18px 4px; }
+.ly-tmpl-desc { font-size: 14px; color: var(--gray-700); line-height: 1.45; padding: 0 18px; }
+.ly-tmpl-cols { font-family: var(--font-mono); font-size: 11px; color: var(--gray-500); letter-spacing: 0.04em; padding: 8px 18px 16px; }
+
+/* ─────────────── Layout page blocks ─────────────── */
+.ly-levels {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.ly-level {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 20px;
+  padding: 22px 22px 24px;
+  border: 1px solid var(--gray-200);
+  border-radius: 14px;
+  background: #fff;
+}
+.ly-level-num {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--primary);
+  background: var(--primary-tint);
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  height: 42px;
+  align-self: start;
+}
+.ly-level-body h3 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 17px;
+  letter-spacing: -0.01em;
+  margin: 0 0 6px;
+  color: var(--ink);
+}
+.ly-level-body p {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--gray-700);
+  margin: 0 0 12px;
+}
+.ly-anatomy {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 24px;
+}
+.ly-anatomy-card {
+  padding: 20px 22px 22px;
+  background: #fff;
+  border: 1px solid var(--gray-200);
+  border-radius: 12px;
+}
+.ly-anatomy-card h3 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 16px;
+  margin: 0 0 8px;
+  color: var(--ink);
+}
+.ly-anatomy-card p {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--gray-700);
+  margin: 0;
+}
+.ly-anatomy-card code {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  background: var(--primary-tint);
+  color: var(--primary-deep);
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+/* Grid visualisation */
+.ly-grid-vis {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 6px;
+  margin-top: 6px;
+  padding: 16px;
+  background: var(--primary-tint);
+  border: 1px dashed var(--primary-tint-2);
+  border-radius: 12px;
+}
+.ly-grid-col {
+  height: 48px;
+  background: rgba(106,78,255,0.18);
+  border-radius: 4px;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--primary-deep);
+}
+
+@media (max-width: 720px) {
+  .ly-anatomy { grid-template-columns: 1fr; }
+  .ly-level { grid-template-columns: 1fr; }
+  .ly-grid-vis { grid-template-columns: repeat(6, 1fr); }
+}
+
+/* ─────────────── Page shell + region diagrams ─────────────── */
+.ly-shell-diagram {
+  border: 1px solid var(--gray-200);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  margin-top: 6px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+.ly-shell-navbar,
+.ly-shell-footer {
+  padding: 14px 18px;
+  background: var(--primary-tint);
+  color: var(--primary-deep);
+  font-weight: 700;
+  text-align: center;
+  border-bottom: 1px solid var(--primary-tint-2);
+}
+.ly-shell-footer {
+  border-bottom: none;
+  border-top: 1px solid var(--primary-tint-2);
+}
+.ly-shell-body {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+}
+.ly-shell-side {
+  padding: 36px 16px;
+  background: #FAFAFA;
+  border-right: 1px solid var(--gray-200);
+  color: var(--gray-700);
+  text-align: center;
+  font-weight: 600;
+}
+.ly-shell-side em {
+  font-style: normal;
+  font-weight: 500;
+  color: var(--gray-400);
+  font-size: 11px;
+}
+.ly-shell-content {
+  padding: 60px 24px;
+  text-align: center;
+  color: var(--gray-500);
+  font-weight: 500;
+  background:
+    linear-gradient(rgba(106,78,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(106,78,255,0.04) 1px, transparent 1px);
+  background-size: 12px 12px;
+}
+
+/* Page-level regions diagram */
+.ly-regions {
+  border: 1px solid var(--gray-200);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #FAFAFA;
+  margin-bottom: 22px;
+  position: relative;
+}
+.ly-region {
+  position: relative;
+  padding: 14px 18px;
+  background: #fff;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 13.5px;
+  line-height: 1.4;
+}
+.ly-region em {
+  display: block;
+  font-style: normal;
+  font-weight: 400;
+  color: var(--gray-500);
+  font-size: 12px;
+  margin-top: 2px;
+}
+.ly-region-label {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--primary);
+  background: var(--primary-tint);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+.ly-region-nav,
+.ly-region-footer {
+  background: var(--primary-tint);
+  color: var(--primary-deep);
+  border-bottom: 1px solid var(--primary-tint-2);
+}
+.ly-region-footer { border-bottom: none; border-top: 1px solid var(--primary-tint-2); }
+.ly-region-nav .ly-region-label,
+.ly-region-footer .ly-region-label { background: #fff; }
+.ly-region-body {
+  padding: 18px;
+  background: #FAFAFA;
+}
+.ly-container-frame {
+  position: relative;
+  padding: 14px;
+  background: #fff;
+  border: 1px dashed var(--primary-tint-2);
+  border-radius: 10px;
+}
+.ly-container-tag {
+  position: absolute;
+  top: -10px;
+  left: 16px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--primary-deep);
+  background: var(--primary-tint);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+.ly-region-row {
+  display: grid;
+  grid-template-columns: 1fr 200px;
+  gap: 12px;
+}
+.ly-region-main {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ly-region-content {
+  min-height: 120px;
+  background:
+    linear-gradient(rgba(106,78,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(106,78,255,0.04) 1px, transparent 1px);
+  background-size: 12px 12px;
+}
+.ly-region-side {
+  min-height: 220px;
+  background: #FAFAFA;
+  border: 1px dashed var(--gray-300);
+}
+
+@media (max-width: 720px) {
+  .ly-shell-body { grid-template-columns: 1fr; }
+  .ly-shell-side { border-right: none; border-bottom: 1px solid var(--gray-200); padding: 14px; }
+  .ly-region-row { grid-template-columns: 1fr; }
+}
+
+/* ─────────────── Column pattern grid ─────────────── */
+.ly-pattern-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+  margin-bottom: 22px;
+}
+.ly-pattern {
+  border: 1px solid var(--gray-200);
+  border-radius: 14px;
+  background: #fff;
+  overflow: hidden;
+}
+.ly-pattern-vis {
+  display: flex;
+  gap: 6px;
+  padding: 18px;
+  background: var(--primary-tint);
+  border-bottom: 1px solid var(--primary-tint-2);
+}
+.ly-pattern-col {
+  height: 64px;
+  background: rgba(106, 78, 255, 0.30);
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  color: var(--primary-deep);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+}
+.ly-pattern-meta {
+  padding: 14px 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.ly-pattern-meta h4 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 14.5px;
+  margin: 0;
+  color: var(--ink);
+}
+.ly-pattern-meta .ly-pattern-cols {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--gray-500);
+}
+.ly-pattern-meta code {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--primary-deep);
+  background: var(--primary-tint);
+  padding: 2px 6px;
+  border-radius: 4px;
+  align-self: flex-start;
+  margin-top: 2px;
+}
+
+/* Fluid vs Fixed grid type cards */
+.ly-grid-types {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.ly-grid-type {
+  padding: 24px 26px 26px;
+  border: 1px solid var(--primary-tint-2);
+  border-radius: 14px;
+  background: linear-gradient(180deg, var(--primary-tint) 0%, #fff 40%);
+}
+.ly-grid-type-fixed {
+  border-color: var(--gray-200);
+  background: linear-gradient(180deg, #FAFAFA 0%, #fff 40%);
+}
+.ly-grid-type-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--primary-deep);
+  background: #fff;
+  border: 1px solid var(--primary-tint-2);
+  padding: 3px 10px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+}
+.ly-grid-type-fixed .ly-grid-type-tag {
+  color: var(--gray-700);
+  border-color: var(--gray-200);
+}
+.ly-grid-type h3 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 19px;
+  letter-spacing: -0.015em;
+  margin: 0 0 8px;
+  color: var(--ink);
+}
+.ly-grid-type p {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--gray-700);
+  margin: 0 0 14px;
+}
+.ly-grid-type ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.ly-grid-type li {
+  position: relative;
+  padding-left: 18px;
+  font-size: 14px;
+  color: var(--gray-700);
+  line-height: 1.45;
+}
+.ly-grid-type li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-family: var(--font-mono);
+  color: var(--primary);
+}
+.ly-grid-type-fixed li::before { color: var(--gray-500); }
+.ly-grid-type li em {
+  font-style: italic;
+  font-weight: 600;
+  color: var(--ink);
+}
+@media (max-width: 720px) { .ly-grid-types { grid-template-columns: 1fr; } }
