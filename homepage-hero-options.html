@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UX4G Hero Explorations</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#6A4EFF',
+            primaryDeep: '#4A2BC2',
+            amber: '#FFA827',
+            ink: '#0E0E12',
+            warmBg: '#FDFBF7',
+            oled: '#050505',
+          },
+          fontFamily: {
+            display: ['"Schibsted Grotesk"', 'sans-serif'],
+            body: ['"Noto Sans"', 'sans-serif'],
+            mono: ['"Noto Sans"', 'sans-serif'],
+          },
+          animation: {
+            'float': 'float 6s cubic-bezier(0.32,0.72,0,1) infinite',
+            'float-delayed': 'float 6s cubic-bezier(0.32,0.72,0,1) 2s infinite',
+            'pulse-glow': 'pulseGlow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-12px)' },
+            },
+            pulseGlow: {
+              '0%, 100%': { opacity: '0.4' },
+              '50%': { opacity: '0.8' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Noto Sans', sans-serif; background: #fff; color: #0E0E12; -webkit-font-smoothing: antialiased; }
+    .font-display { font-family: 'Schibsted Grotesk', sans-serif; }
+    
+    /* Premium Transitions & Easing */
+    .premium-ease { transition: all 700ms cubic-bezier(0.32, 0.72, 0, 1); }
+    .fast-ease { transition: all 300ms cubic-bezier(0.32, 0.72, 0, 1); }
+    
+    /* Tab Switching */
+    .hero-option { display: none !important; opacity: 0; }
+    .hero-option.active { display: flex !important; animation: fadeIn 0.5s ease forwards; }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Double Bezel Architecture */
+    .shell {
+      background: rgba(0,0,0,0.03);
+      padding: 8px;
+      border-radius: 2.5rem;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    .core {
+      background: #ffffff;
+      border-radius: calc(2.5rem - 8px);
+      box-shadow: 0 20px 40px -15px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.5);
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    /* Dark Mode Bezel */
+    .shell-dark {
+      background: rgba(255,255,255,0.03);
+      padding: 8px;
+      border-radius: 2.5rem;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .core-dark {
+      background: #0A0A0A;
+      border-radius: calc(2.5rem - 8px);
+      box-shadow: 0 20px 40px -15px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    /* Button-in-Button CTA */
+    .btn-nested {
+      padding: 12px 12px 12px 24px;
+      border-radius: 9999px;
+    }
+    .btn-nested-icon {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    
+    /* ==========================================
+       MARQUEE & BACKGROUND STYLES
+       ========================================== */
+    
+    /* Subtle animated gradient shifting slowly over 12s */
+    @keyframes shiftGradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .bg-animated-gradient {
+      background: linear-gradient(120deg, #FAFAFA, #F2EFFF, #FAF8F3, #FAFAFA);
+      background-size: 300% 300%;
+      animation: shiftGradient 12s ease-in-out infinite;
+    }
+
+    /* Radial Backdrops */
+    .radial-mask-center {
+      background: radial-gradient(ellipse 60% 70% at center, rgba(255,255,255,0.95) 40%, rgba(255,255,255,0) 100%);
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      pointer-events: none;
+    }
+    .radial-mask-left {
+      background: radial-gradient(ellipse 70% 80% at 20% 50%, rgba(255,255,255,0.95) 40%, rgba(255,255,255,0) 100%);
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    /* Marquee Scroller */
+    .marquee-container {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      z-index: 0;
+      display: flex;
+      gap: 24px;
+      padding-top: 100px;
+      padding-bottom: 100px;
+      /* Optional fade at top/bottom of the track */
+      -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+      mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+    }
+    .marquee-col {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      width: 280px;
+      position: relative;
+      will-change: transform;
+    }
+    .marquee-track {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      animation: scrollUp var(--scroll-duration, 20s) linear infinite;
+      animation-delay: var(--scroll-delay, 0s);
+      will-change: transform;
+    }
+    @keyframes scrollUp {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-50%); }
+    }
+
+    /* Marquee Cells */
+    .marquee-cell {
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      /* Opacity is handled by JS transitions */
+      opacity: 0; 
+      will-change: opacity;
+    }
+
+    .cell-standard { height: 180px; }
+    .cell-tall { height: 280px; }
+    /* Wide cell for left-aligned option rightmost column */
+    .cell-wide { width: 400px; }
+
+  </style>
+<link rel="stylesheet" href="css/ux4g-tokens.css">
+<link rel="stylesheet" href="css/ux4g-semantic.css">
+</head>
+<body class="min-h-screen flex flex-col relative overflow-x-hidden">
+
+<!-- Navigation -->
+<nav class="fixed top-6 inset-x-0 z-[60] flex justify-center pointer-events-none">
+  <div class="bg-white/80 backdrop-blur-2xl border border-black/5 p-1.5 rounded-full flex gap-1 shadow-[0_8px_30px_rgb(0,0,0,0.04)] pointer-events-auto">
+    <button onclick="showTab(1)" id="btn-1" class="nav-btn px-5 py-2 rounded-full text-[13px] font-semibold premium-ease bg-ink text-white tracking-wide shadow-md">1. Typographic (Left)</button>
+    <button onclick="showTab(2)" id="btn-2" class="nav-btn px-5 py-2 rounded-full text-[13px] font-semibold premium-ease bg-transparent hover:bg-black/5 text-gray-600 tracking-wide">2. Split Preview</button>
+    <button onclick="showTab(3)" id="btn-3" class="nav-btn px-5 py-2 rounded-full text-[13px] font-semibold premium-ease bg-transparent hover:bg-black/5 text-gray-600 tracking-wide">3. Dark Inverted</button>
+    <button onclick="showTab(4)" id="btn-4" class="nav-btn px-5 py-2 rounded-full text-[13px] font-semibold premium-ease bg-transparent hover:bg-black/5 text-gray-600 tracking-wide">4. India Texture (Center)</button>
+    <button onclick="showTab(5)" id="btn-5" class="nav-btn px-5 py-2 rounded-full text-[13px] font-semibold premium-ease bg-transparent hover:bg-black/5 text-gray-600 tracking-wide">5. Z-Cascade</button>
+  </div>
+</nav>
+
+<!-- Main Container -->
+<main class="flex-grow w-full relative">
+
+  <!-- ==========================================
+       OPTION 1: TYPOGRAPHIC-LED (LEFT ALIGNED)
+       ========================================== -->
+  <section id="hero-1" class="hero-option active min-h-[100dvh] w-full bg-animated-gradient relative flex items-center pt-24 pb-16 overflow-hidden">
+    
+    <!-- Marquee Background Container -->
+    <div class="absolute inset-0 right-[-10%] left-auto w-[65%] overflow-hidden z-0">
+      <div id="marquee-left-aligned" class="marquee-container justify-end pr-12" style="-webkit-mask-image: none; mask-image: none;"></div>
+    </div>
+    
+    <!-- Radial Mask to protect text readability -->
+    <div class="radial-mask-left"></div>
+
+    <div class="max-w-[1400px] mx-auto px-6 md:px-12 w-full relative z-10 pointer-events-none">
+      <div class="max-w-[1000px] pointer-events-auto">
+        <!-- Eyebrow -->
+        <div class="mb-10 inline-flex items-center gap-3 px-4 py-1.5 rounded-full border border-black/10 bg-white/50 backdrop-blur-md">
+          <span class="w-2 h-2 rounded-full bg-primary animate-pulse-glow"></span>
+          <span class="font-mono text-[10px] uppercase tracking-[0.2em] font-semibold text-gray-600">v3.0 Core Release</span>
+        </div>
+        
+        <!-- Headline -->
+        <h1 class="font-display text-[4rem] md:text-[6rem] lg:text-[7.5rem] leading-[0.95] tracking-[-0.04em] text-ink font-semibold mb-10 drop-shadow-sm">
+          UX4G Design System
+        </h1>
+        
+        <!-- Description -->
+        <div class="pl-2 border-l-2 border-amber">
+          <p class="text-xl md:text-2xl text-gray-600 leading-relaxed max-w-[55ch] font-medium tracking-tight">
+            Engineered for the scale and complexity of Indian public digital infrastructure. Aadhaar-ready, DPDP compliant, and natively fluent in 22 official scripts.
+          </p>
+        </div>
+
+        <!-- Actions -->
+        <div class="mt-16 flex flex-wrap items-center gap-6">
+          <button class="group btn-nested bg-ink text-white flex items-center gap-4 premium-ease hover:scale-[0.98] shadow-lg shadow-black/10">
+            <span class="font-semibold text-sm tracking-wide">Explore Primitives</span>
+            <div class="btn-nested-icon bg-white/10 group-hover:bg-primary group-hover:translate-x-1 group-hover:scale-105 premium-ease">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-white"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </button>
+          
+          <button class="group px-6 py-3 rounded-full text-sm font-semibold text-ink bg-white/60 hover:bg-white/90 backdrop-blur-sm border border-black/5 premium-ease flex items-center gap-2">
+            Read Documentation
+            <span class="text-gray-400 group-hover:text-ink premium-ease transition-colors">↗</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==========================================
+       OPTION 2: SPLIT PREVIEW
+       ========================================== -->
+  <section id="hero-2" class="hero-option min-h-[100dvh] w-full bg-[#FCFDFD] relative flex items-center pt-32 pb-16">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-12 w-full">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <!-- Left: Copy -->
+        <div class="pr-0 lg:pr-12">
+          <div class="mb-8 inline-flex items-center gap-3 px-3 py-1 rounded-full border border-primary/20 bg-primary/5 text-primary">
+            <span class="font-mono text-[10px] uppercase tracking-[0.2em] font-semibold">Government UI Primitive</span>
+          </div>
+          <h1 class="font-display text-5xl md:text-6xl tracking-[-0.03em] leading-[1.05] font-bold text-ink mb-6">
+            The UX4G Design System.
+          </h1>
+          <p class="text-lg text-gray-500 leading-relaxed mb-10 max-w-[48ch]">
+            Stop reinventing basic service flows. Utilize our pre-built, WCAG 2.1 AA compliant components specifically designed for OTP verification, SLA tracking, and citizen dashboards.
+          </p>
+          <div class="flex items-center gap-4">
+            <button class="group btn-nested bg-primary text-white flex items-center gap-4 premium-ease hover:scale-[0.98] hover:bg-primaryDeep shadow-lg shadow-primary/20">
+              <span class="font-semibold text-sm tracking-wide">View Components</span>
+              <div class="btn-nested-icon bg-white/20 group-hover:bg-white group-hover:text-primary premium-ease group-hover:translate-x-1">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right: Live Component Preview (Double Bezel) -->
+        <div class="relative w-full aspect-square md:aspect-video lg:aspect-square flex justify-center items-center">
+          <div class="absolute inset-0 bg-primary/10 blur-[100px] rounded-full transform -translate-y-12"></div>
+          <div class="shell w-full max-w-md relative z-10 animate-float">
+            <div class="core p-8 md:p-10 flex flex-col gap-8">
+              <!-- Fake SLA Component -->
+              <div class="border border-gray-100 rounded-2xl p-5 bg-white shadow-[0_2px_10px_-4px_rgba(0,0,0,0.02)]">
+                <div class="flex justify-between items-end mb-4">
+                  <div>
+                    <div class="font-mono text-[10px] text-gray-400 uppercase tracking-wider mb-1">RTS SLA</div>
+                    <div class="font-semibold text-sm text-ink">Property Mutation</div>
+                  </div>
+                  <div class="text-amber font-semibold text-sm">3 Days Left</div>
+                </div>
+                <div class="w-full bg-gray-100 h-2 rounded-full overflow-hidden">
+                  <div class="bg-amber h-full rounded-full" style="width: 85%;"></div>
+                </div>
+              </div>
+              <!-- Fake OTP Component -->
+              <div class="border border-gray-100 rounded-2xl p-6 bg-white shadow-[0_2px_10px_-4px_rgba(0,0,0,0.02)]">
+                <div class="font-semibold text-sm text-ink mb-1">Aadhaar Verification</div>
+                <div class="text-xs text-gray-500 mb-4">Enter 6-digit code sent to +91 ******9923</div>
+                <div class="flex gap-2 justify-between">
+                  <div class="w-12 h-14 border border-ink rounded-lg flex items-center justify-center font-mono text-xl font-medium">4</div>
+                  <div class="w-12 h-14 border border-ink rounded-lg flex items-center justify-center font-mono text-xl font-medium">0</div>
+                  <div class="w-12 h-14 border border-gray-200 rounded-lg flex items-center justify-center font-mono text-xl font-medium text-primary">|</div>
+                  <div class="w-12 h-14 border border-gray-200 rounded-lg flex items-center justify-center font-mono text-xl font-medium"></div>
+                  <div class="w-12 h-14 border border-gray-200 rounded-lg flex items-center justify-center font-mono text-xl font-medium"></div>
+                  <div class="w-12 h-14 border border-gray-200 rounded-lg flex items-center justify-center font-mono text-xl font-medium"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==========================================
+       OPTION 3: DARK INVERTED
+       ========================================== -->
+  <section id="hero-3" class="hero-option min-h-[100dvh] w-full bg-oled relative flex items-center pt-32 pb-16 overflow-hidden">
+    <!-- Ambient glowing orbs -->
+    <div class="absolute top-[-20%] right-[-10%] w-[50vw] h-[50vw] bg-primary rounded-full blur-[160px] opacity-20"></div>
+    <div class="absolute bottom-[-10%] left-[-10%] w-[40vw] h-[40vw] bg-amber rounded-full blur-[140px] opacity-10"></div>
+    
+    <div class="max-w-[1400px] mx-auto px-6 md:px-12 w-full relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <!-- Left: Huge Dark Typography -->
+        <div class="lg:col-span-7">
+          <h1 class="font-display text-5xl md:text-[5.5rem] leading-[1.0] tracking-[-0.03em] font-bold text-white mb-8">
+            UX4G <br/><span class="text-white/40">Design System</span>
+          </h1>
+          <p class="text-xl text-gray-400 leading-relaxed mb-12 max-w-[45ch]">
+            The unified infrastructure layer for Indian digital governance. Built for extreme scale, unparalleled accessibility, and seamless public service delivery.
+          </p>
+          <div class="flex items-center gap-6">
+            <button class="group btn-nested bg-white text-ink flex items-center gap-4 premium-ease hover:scale-[0.98]">
+              <span class="font-bold text-sm tracking-wide">Start Building</span>
+              <div class="btn-nested-icon bg-black/5 group-hover:bg-ink group-hover:text-white premium-ease group-hover:translate-x-1">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </div>
+            </button>
+            <button class="group px-6 py-3 rounded-full text-sm font-semibold text-gray-300 bg-white/5 hover:bg-white/10 premium-ease flex items-center gap-2 border border-white/10">
+              <span class="w-2 h-2 rounded-full bg-success mr-2"></span>
+              v3.0 is Live
+            </button>
+          </div>
+        </div>
+
+        <!-- Right: Vantablack Card stack -->
+        <div class="lg:col-span-5 relative h-[500px] flex items-center justify-center">
+          <div class="absolute w-full max-w-[320px] transform rotate-6 translate-x-12 translate-y-8 opacity-40 blur-sm">
+            <div class="shell-dark"><div class="core-dark h-[240px]"></div></div>
+          </div>
+          <div class="absolute w-full max-w-[360px] transform z-20 hover:scale-[1.02] premium-ease">
+            <div class="shell-dark backdrop-blur-3xl">
+              <div class="core-dark p-8 border-t border-white/20 relative overflow-hidden">
+                <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+                <div class="flex items-center gap-4 mb-6">
+                  <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-amber"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                  </div>
+                  <div>
+                    <div class="text-white text-sm font-semibold">Payment Gateway</div>
+                    <div class="text-gray-500 text-xs font-mono">ux4g/patterns/pay</div>
+                  </div>
+                </div>
+                <div class="space-y-3">
+                  <div class="h-10 w-full bg-white/5 rounded-lg border border-white/5"></div>
+                  <div class="h-10 w-full bg-white/5 rounded-lg border border-white/5"></div>
+                  <div class="h-12 w-full bg-primary/20 rounded-lg border border-primary/30 mt-6 flex items-center justify-center">
+                    <div class="w-16 h-2 bg-primary/50 rounded-full"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==========================================
+       OPTION 4: INDIA TEXTURE (CENTERED LAYOUT)
+       ========================================== -->
+  <section id="hero-4" class="hero-option min-h-[100dvh] w-full bg-animated-gradient relative flex flex-col justify-center pt-24 pb-16 overflow-hidden">
+    
+    <!-- Marquee Background Container -->
+    <div class="absolute inset-0 overflow-hidden z-0 flex justify-between pointer-events-none">
+      <div id="marquee-centered-left" class="marquee-container justify-start pl-8 w-[40%] relative" style="-webkit-mask-image: none; mask-image: none;"></div>
+      <div id="marquee-centered-right" class="marquee-container justify-end pr-8 w-[40%] relative" style="-webkit-mask-image: none; mask-image: none;"></div>
+    </div>
+    
+    <!-- Radial Mask to protect text readability -->
+    <div class="radial-mask-center"></div>
+
+    <div class="max-w-[1400px] mx-auto px-6 md:px-12 w-full relative z-10 flex flex-col items-center text-center pointer-events-none">
+      
+      <!-- Content Area (Pointer events restored) -->
+      <div class="pointer-events-auto flex flex-col items-center">
+        <!-- Bento Tags Floating -->
+        <div class="flex flex-wrap justify-center gap-3 mb-10 max-w-3xl">
+          <span class="px-4 py-1.5 rounded-full border border-gray-200 bg-white/60 backdrop-blur shadow-sm text-xs font-mono text-gray-500 tracking-wide">Aadhaar Native</span>
+          <span class="px-4 py-1.5 rounded-full border border-amber/30 bg-amber/10 backdrop-blur text-amber shadow-sm text-xs font-mono tracking-wide">22 Scripts</span>
+          <span class="px-4 py-1.5 rounded-full border border-gray-200 bg-white/60 backdrop-blur shadow-sm text-xs font-mono text-gray-500 tracking-wide">DPDP 2023 Consent</span>
+          <span class="px-4 py-1.5 rounded-full border border-gray-200 bg-white/60 backdrop-blur shadow-sm text-xs font-mono text-gray-500 tracking-wide">WCAG 2.1 AA</span>
+        </div>
+
+        <h1 class="font-display text-5xl md:text-7xl lg:text-[6.5rem] tracking-tight leading-[0.95] font-bold text-ink mb-8 max-w-[18ch] drop-shadow-sm">
+          The UX4G <br/>Design System
+        </h1>
+        
+        <p class="text-xl text-gray-600 leading-relaxed mb-12 max-w-[38ch] font-medium">
+          Designed for a billion citizens. The official component library and pattern repository for Government of India initiatives.
+        </p>
+
+        <button class="group btn-nested bg-primary text-white flex items-center gap-4 premium-ease hover:scale-[0.98] shadow-xl shadow-primary/20">
+          <span class="font-semibold text-[15px] tracking-wide">Access Repository</span>
+          <div class="btn-nested-icon bg-white/20 group-hover:bg-white group-hover:text-primary premium-ease group-hover:translate-x-1">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==========================================
+       OPTION 5: Z-CASCADE (OPEN DIRECTION)
+       ========================================== -->
+  <section id="hero-5" class="hero-option min-h-[100dvh] w-full bg-[#F3F4F6] relative flex items-center pt-32 pb-16 overflow-hidden">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-12 w-full relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <!-- Left: Editorial Typography -->
+        <div class="relative z-20">
+          <h1 class="font-display text-5xl md:text-7xl tracking-[-0.03em] leading-[1.05] font-bold text-ink mb-8">
+            Build services<br/>
+            <span class="text-gray-400">Not just screens.</span>
+          </h1>
+          <p class="text-lg text-gray-600 leading-relaxed mb-10 max-w-[42ch]">
+            UX4G Design System moves beyond generic UI kits. It provides legally compliant, structurally robust architectural patterns for real Indian public services.
+          </p>
+          <div class="flex items-center gap-4">
+            <button class="px-8 py-4 rounded-full bg-ink text-white font-semibold text-sm tracking-wide premium-ease hover:scale-[0.98] shadow-2xl shadow-black/20">
+              Get Started
+            </button>
+            <button class="px-8 py-4 rounded-full bg-white text-ink border border-gray-200 font-semibold text-sm tracking-wide premium-ease hover:bg-gray-50 shadow-sm">
+              Component Library
+            </button>
+          </div>
+        </div>
+
+        <!-- Right: Z-Axis Cascade -->
+        <div class="relative h-[600px] hidden md:block">
+          <!-- Back Card -->
+          <div class="absolute top-[10%] right-[20%] w-[340px] transform -rotate-6 scale-95 opacity-80 shadow-[0_20px_40px_rgba(0,0,0,0.08)] rounded-3xl bg-white p-6 border border-gray-100 animate-float-delayed">
+            <div class="w-1/3 h-3 bg-gray-200 rounded-full mb-6"></div>
+            <div class="space-y-3">
+              <div class="h-12 w-full bg-gray-50 rounded-xl border border-gray-100"></div>
+              <div class="h-12 w-full bg-gray-50 rounded-xl border border-gray-100"></div>
+            </div>
+          </div>
+          <!-- Middle Card -->
+          <div class="absolute top-[25%] right-[10%] w-[360px] transform rotate-3 scale-100 shadow-[0_30px_60px_rgba(0,0,0,0.12)] rounded-3xl bg-white p-6 border border-gray-100 animate-float">
+            <div class="flex justify-between items-center mb-6">
+              <div class="w-1/2 h-3 bg-gray-200 rounded-full"></div>
+              <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                <div class="w-3 h-3 rounded-full bg-primary"></div>
+              </div>
+            </div>
+            <div class="w-full h-32 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl border border-gray-100 mb-4 flex items-end p-4 gap-2">
+               <div class="w-1/4 h-1/2 bg-amber rounded-t-md"></div>
+               <div class="w-1/4 h-3/4 bg-primary rounded-t-md"></div>
+               <div class="w-1/4 h-full bg-ink rounded-t-md"></div>
+            </div>
+          </div>
+          <!-- Front Card (Double Bezel) -->
+          <div class="absolute top-[45%] right-[25%] w-[380px] transform -rotate-2 scale-105 shadow-[0_40px_80px_rgba(0,0,0,0.15)] premium-ease hover:rotate-0 hover:scale-110 z-30">
+            <div class="shell">
+              <div class="core p-6">
+                <div class="flex items-center gap-4 mb-4">
+                  <div class="w-12 h-12 bg-ink rounded-full flex items-center justify-center text-white font-display font-bold">U4</div>
+                  <div>
+                    <div class="font-bold text-ink">UX4G Design System</div>
+                    <div class="text-xs text-gray-500">Global Styles & Variables</div>
+                  </div>
+                </div>
+                <button class="w-full py-3 bg-primary text-white rounded-xl font-medium text-sm mt-2 shadow-inner shadow-white/20">
+                  Synchronize Tokens
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  // Tab Navigation Logic
+  function showTab(num) {
+    document.querySelectorAll('.hero-option').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(el => {
+      el.className = "nav-btn px-5 py-2 rounded-full text-[13px] font-semibold premium-ease bg-transparent hover:bg-black/5 text-gray-600 tracking-wide";
+    });
+    
+    const activeHero = document.getElementById('hero-' + num);
+    if (activeHero) activeHero.classList.add('active');
+    
+    const activeBtn = document.getElementById('btn-' + num);
+    if (activeBtn) {
+      if (num === 3) {
+        activeBtn.className = "nav-btn px-5 py-2 rounded-full text-[13px] font-semibold premium-ease bg-white text-ink tracking-wide shadow-md";
+      } else {
+        activeBtn.className = "nav-btn px-5 py-2 rounded-full text-[13px] font-semibold premium-ease bg-ink text-white tracking-wide shadow-md";
+      }
+    }
+  }
+
+  // Marquee Snippets Logic
+  const snippets = [
+    // 1. Status badge row
+    `<div class="flex flex-wrap gap-2">
+      <span class="px-2.5 py-1 rounded-full text-[11px] font-medium border border-[#B9DDC5] text-[#106C35] bg-[#EBF6EF] flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#106C35]"></span>Verified</span>
+      <span class="px-2.5 py-1 rounded-full text-[11px] font-medium border border-[#FCD9A0] text-[#8A5A14] bg-[#FFF1DA] flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#8A5A14]"></span>Under Review</span>
+      <span class="px-2.5 py-1 rounded-full text-[11px] font-medium border border-[#F4B9B5] text-[#DB372D] bg-[#FDECEB] flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#DB372D]"></span>Rejected</span>
+    </div>`,
+    // 2. OTP Input
+    `<div class="space-y-2">
+      <div class="text-[10px] text-gray-500 font-mono uppercase tracking-wider">Aadhaar OTP</div>
+      <div class="flex gap-1.5">
+        <div class="w-8 h-10 border border-ink rounded flex items-center justify-center font-mono text-sm font-semibold">4</div>
+        <div class="w-8 h-10 border border-ink rounded flex items-center justify-center font-mono text-sm font-semibold">8</div>
+        <div class="w-8 h-10 border border-ink rounded flex items-center justify-center font-mono text-sm font-semibold">2</div>
+        <div class="w-8 h-10 border border-primary rounded flex items-center justify-center font-mono text-sm shadow-[0_0_0_2px_rgba(106,78,255,0.2)]">|</div>
+        <div class="w-8 h-10 border border-gray-200 rounded bg-gray-50"></div>
+        <div class="w-8 h-10 border border-gray-200 rounded bg-gray-50"></div>
+      </div>
+    </div>`,
+    // 3. Success Alert
+    `<div class="p-3 bg-[#EBF6EF] border border-[#B9DDC5] rounded-lg flex gap-3">
+      <div class="text-[#106C35] mt-0.5">✓</div>
+      <div>
+        <div class="text-[12px] font-semibold text-[#106C35]">Application submitted</div>
+        <div class="text-[11px] text-[#106C35]/80 mt-1">Ref: AP-2025-DM-83942</div>
+      </div>
+    </div>`,
+    // 4. Warning Alert
+    `<div class="p-3 bg-[#FFF1DA] border border-[#FCD9A0] rounded-lg flex gap-3">
+      <div class="text-[#8A5A14] mt-0.5 font-bold text-[14px] leading-none">!</div>
+      <div>
+        <div class="text-[12px] font-semibold text-[#8A5A14]">Session expiring</div>
+        <div class="text-[11px] text-[#8A5A14]/80 mt-1">Save draft to avoid data loss.</div>
+      </div>
+    </div>`,
+    // 5. Progress bar
+    `<div class="space-y-2">
+      <div class="w-full h-1.5 bg-gray-200 rounded-full overflow-hidden">
+        <div class="h-full bg-primary rounded-full" style="width: 67%"></div>
+      </div>
+      <div class="flex justify-between text-[10px] font-mono text-gray-500 font-medium tracking-wide">
+        <span>STEP 4 OF 6</span><span>67% COMPLETE</span>
+      </div>
+    </div>`,
+    // 6. SLA indicator
+    `<div class="space-y-2">
+      <div class="flex justify-between items-end">
+        <div class="text-[11px] font-semibold text-ink">Certificate SLA</div>
+        <div class="text-[10px] font-bold text-amber">18 days left</div>
+      </div>
+      <div class="w-full h-1.5 bg-gray-200 rounded-full overflow-hidden">
+        <div class="h-full bg-amber rounded-full" style="width: 40%"></div>
+      </div>
+      <div class="flex justify-between text-[9px] text-gray-400 font-mono tracking-wide">
+        <span>FILED 14 APR</span><span>DUE 05 MAY</span>
+      </div>
+    </div>`,
+    // 7. File upload row
+    `<div class="flex items-center justify-between p-2.5 border border-gray-200 rounded-lg bg-gray-50">
+      <div class="flex items-center gap-2.5">
+        <div class="w-4 h-4 rounded-full bg-success flex items-center justify-center text-white text-[9px]">✓</div>
+        <div class="text-[11px] font-medium text-ink">pan_card_scan.pdf</div>
+      </div>
+      <div class="text-[10px] font-medium text-gray-400">Remove</div>
+    </div>`,
+    // 8. Checklist
+    `<div class="space-y-2">
+      <div class="flex gap-2.5 items-start opacity-50">
+        <div class="w-3.5 h-3.5 mt-0.5 rounded flex items-center justify-center bg-ink text-white text-[9px]">✓</div>
+        <div class="text-[11px] font-medium text-ink line-through">Identity Proof</div>
+      </div>
+      <div class="flex gap-2.5 items-start opacity-50">
+        <div class="w-3.5 h-3.5 mt-0.5 rounded flex items-center justify-center bg-ink text-white text-[9px]">✓</div>
+        <div class="text-[11px] font-medium text-ink line-through">Address Proof</div>
+      </div>
+      <div class="flex gap-2.5 items-start">
+        <div class="w-3.5 h-3.5 mt-0.5 rounded border border-gray-300 bg-white"></div>
+        <div class="text-[11px] font-medium text-ink">Income Certificate <span class="text-danger">*</span></div>
+      </div>
+    </div>`,
+    // 9. Button group
+    `<div class="flex gap-2">
+      <button class="px-3.5 py-1.5 bg-primary text-white text-[12px] font-semibold rounded-md shadow-sm">Submit</button>
+      <button class="px-3.5 py-1.5 border border-gray-300 text-ink text-[12px] font-semibold rounded-md bg-white">Cancel</button>
+    </div>`,
+    // 10. Language chips
+    `<div class="flex flex-wrap gap-2">
+      <span class="px-2.5 py-1 border border-primary text-primary bg-primary/5 rounded text-[11px] font-medium">English</span>
+      <span class="px-2.5 py-1 border border-gray-200 text-gray-600 bg-white rounded text-[11px] font-medium">हिन्दी</span>
+      <span class="px-2.5 py-1 border border-gray-200 text-gray-600 bg-white rounded text-[11px] font-medium">தமிழ்</span>
+      <span class="px-2.5 py-1 border border-gray-200 text-gray-600 bg-white rounded text-[11px] font-medium">বাংলা</span>
+    </div>`,
+    // 11. Form field
+    `<div class="space-y-1.5">
+      <label class="text-[11px] font-semibold text-gray-700 flex justify-between items-center">
+        Full name <span class="text-[9px] font-bold bg-[#EBF6EF] border border-[#B9DDC5] text-[#106C35] px-1.5 py-0.5 rounded-sm">Aadhaar Match</span>
+      </label>
+      <div class="px-3 py-2 border border-gray-300 rounded-md text-[12px] text-ink bg-gray-50 font-medium">Rahul Sharma</div>
+    </div>`,
+    // 12. Status pipeline
+    `<div class="flex flex-col gap-0.5 relative">
+      <div class="absolute left-[11px] top-2 bottom-2 w-px bg-gray-200"></div>
+      <div class="flex items-center gap-2.5 z-10 relative bg-transparent py-1">
+        <div class="w-4 h-4 rounded-full bg-success flex items-center justify-center text-white text-[9px] shadow-sm">✓</div>
+        <div class="text-[11px] text-gray-500 font-medium">Submitted</div>
+      </div>
+      <div class="flex items-center gap-2.5 z-10 relative bg-transparent py-1">
+        <div class="w-4 h-4 rounded-full bg-success flex items-center justify-center text-white text-[9px] shadow-sm">✓</div>
+        <div class="text-[11px] text-gray-500 font-medium">Verification</div>
+      </div>
+      <div class="flex items-center gap-2.5 z-10 relative bg-transparent py-1">
+        <div class="w-4 h-4 rounded-full bg-primary flex items-center justify-center text-white text-[9px] shadow-[0_0_0_2px_rgba(106,78,255,0.2)]">3</div>
+        <div class="text-[11px] font-semibold text-ink">Inspection</div>
+      </div>
+      <div class="flex items-center gap-2.5 z-10 relative bg-transparent py-1">
+        <div class="w-4 h-4 rounded-full bg-gray-100 border border-gray-300"></div>
+        <div class="text-[11px] text-gray-400 font-medium">Approval</div>
+      </div>
+    </div>`
+  ];
+
+  // Marquee Builder
+  function buildMarquees(containerId, columnsConfig) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    
+    const html = columnsConfig.map(col => {
+      // Build one set of cells
+      let setHTML = '';
+      for(let i=0; i<8; i++) { // 8 cells per set
+        const snippet = snippets[Math.floor(Math.random() * snippets.length)];
+        let cellClass = 'cell-standard';
+        if (col.hasWide && i % 3 === 0) cellClass = 'cell-wide';
+        else if (Math.random() > 0.6) cellClass = 'cell-tall';
+        
+        setHTML += `<div class="marquee-cell ${cellClass}" data-state="hidden">${snippet}</div>`;
+      }
+      
+      // Duplicate set for seamless looping
+      return `
+        <div class="marquee-col">
+          <div class="marquee-track" style="--scroll-duration: ${col.duration}s; --scroll-delay: -${col.delay}s;">
+            ${setHTML}
+            ${setHTML}
+          </div>
+        </div>
+      `;
+    }).join('');
+    
+    container.innerHTML = html;
+  }
+
+  // Left-Aligned: 4 columns right
+  buildMarquees('marquee-left-aligned', [
+    { duration: 20, delay: 0 },
+    { duration: 26, delay: 5 },
+    { duration: 32, delay: 10 },
+    { duration: 23, delay: 15, hasWide: true }
+  ]);
+
+  // Centered: 3 left, 3 right
+  buildMarquees('marquee-centered-left', [
+    { duration: 20, delay: 0 },
+    { duration: 26, delay: 5 },
+    { duration: 32, delay: 10 }
+  ]);
+  buildMarquees('marquee-centered-right', [
+    { duration: 23, delay: 2 },
+    { duration: 28, delay: 7 },
+    { duration: 21, delay: 12 }
+  ]);
+
+  // JS Toggler for Cell Visibility (Independent, random staggered)
+  function initCellFading() {
+    const cells = document.querySelectorAll('.marquee-cell');
+    const maxVisible = Math.floor(cells.length * 0.6);
+
+    cells.forEach(cell => {
+      // Start randomly staggered
+      setTimeout(() => scheduleCell(cell), Math.random() * 5000);
+    });
+
+    function scheduleCell(cell) {
+      if (cell.dataset.state === 'hidden') {
+        const waitTime = 1000 + Math.random() * 3000; // 1-4s gap
+        setTimeout(() => {
+          // Check global count
+          const currentVisible = document.querySelectorAll('.marquee-cell[data-state="visible"]').length;
+          
+          // Also check adjacent cells logic (optional advanced check)
+          // For now, global count ensures sparse grid
+          if (currentVisible < maxVisible) {
+            cell.dataset.state = 'visible';
+            cell.style.transitionDuration = '0.6s'; // fade in
+            cell.style.opacity = '1';
+            scheduleCell(cell);
+          } else {
+            scheduleCell(cell); // try again
+          }
+        }, waitTime);
+      } else {
+        const stayTime = 3000 + Math.random() * 5000; // 3-8s visible
+        setTimeout(() => {
+          cell.dataset.state = 'hidden';
+          cell.style.transitionDuration = '0.8s'; // fade out
+          cell.style.opacity = '0';
+          scheduleCell(cell);
+        }, stayTime);
+      }
+    }
+  }
+  
+  initCellFading();
+</script>
+
+</body>
+</html>

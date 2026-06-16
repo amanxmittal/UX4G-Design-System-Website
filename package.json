@@ -1,0 +1,20 @@
+{
+  "name": "ux4g-design-system",
+  "version": "1.0.0",
+  "description": "UX4G Design System - Official Website & Documentation",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx browser-sync start --server --files '*.html', 'css/*.css', 'src/*.jsx' --no-notify --open"
+  },
+  "keywords": [
+    "ux4g",
+    "design-system",
+    "india",
+    "government"
+  ],
+  "author": "UX4G Team",
+  "license": "MIT",
+  "devDependencies": {
+    "browser-sync": "^3.0.0"
+  }
+}
